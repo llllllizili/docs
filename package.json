@@ -1,0 +1,14 @@
+{
+  "name": "ziliDocs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.9.8"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+	"gitpage": "GH=1 yarn docs:build && bash scripts/deploy-gh.sh"
+  }
+}
