@@ -1,0 +1,1 @@
+import{_ as e,X as t,Y as o,Z as a,a0 as n}from"./framework-7663974c.js";const c={},s=n("p",null,"查询使用",-1);function _(r,l){return t(),o("div",null,[s,a(" <AutoCatalog /> ")])}const i=e(c,[["render",_],["__file","index.html.vue"]]);export{i as default};

@@ -1,0 +1,1 @@
+import{_ as t,X as a,Y as r,a0 as e}from"./framework-7663974c.js";const o={},c=e("h1",{id:"",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#","aria-hidden":"true"},"#")],-1),s=[c];function _(n,d){return a(),r("div",null,s)}const h=t(o,[["render",_],["__file","03-PromQL.html.vue"]]);export{h as default};
