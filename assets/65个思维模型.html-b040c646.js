@@ -1,0 +1,1 @@
+import{_ as o,X as _,Y as t,a1 as n,F as s}from"./framework-abbf9d44.js";const c={};function r(a,l){const e=s("PDF");return _(),t("div",null,[n(e,{url:"/assets/pdf/65个思维模型地图.pdf","no-toolbar":""})])}const m=o(c,[["render",r],["__file","65个思维模型.html.vue"]]);export{m as default};
