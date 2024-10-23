@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-beta.61" />
+    <meta name="theme" content="VuePress Theme Hope" />
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?088df8f788eb6cfa86e86b04cee94211";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+        </script><title>常用方法论参考</title><meta name="description" content="Z的文档">
+    <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d1e1f;
+      }
+
+      html,
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <link rel="preload" href="/assets/style-cf6f3347.css" as="style"><link rel="stylesheet" href="/assets/style-cf6f3347.css">
+    <link rel="modulepreload" href="/assets/app-0dd9c6d3.js"><link rel="modulepreload" href="/assets/framework-abbf9d44.js"><link rel="modulepreload" href="/assets/方法论.html-1b972f5b.js"><link rel="modulepreload" href="/assets/方法论.html-f38ee5e9.js">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="skip-link sr-only">跳至主要內容</a><!--]--><div class="theme-container no-sidebar has-toc"><!--[--><header class="navbar" id="navbar"><div class="navbar-start"><button class="toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><a href="/" class="brand"><img class="logo" src="/logo.png" alt><!----><!----></a><!--[--><!----><!--]--></div><div class="navbar-center"><!--[--><!----><!--]--><nav class="nav-links"><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="Linux"><span class="title"><span class="font-icon icon iconfont icon-linux" style=""></span>Linux</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/ops/linux" class="nav-link" aria-label="运维"><!---->运维<!----></a></li><li class="dropdown-item"><a href="/ops/GitOps" class="nav-link" aria-label="GitOps"><!---->GitOps<!----></a></li><li class="dropdown-item"><a href="/ops/monitor" class="nav-link" aria-label="Monitor"><!---->Monitor<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="☁️云原生"><span class="title"><!---->☁️云原生</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/cloud-native/kubernetes" class="nav-link" aria-label="Kubernetes"><!---->Kubernetes<!----></a></li><li class="dropdown-item"><a href="/cloud-native/backup" class="nav-link" aria-label="备份"><!---->备份<!----></a></li><li class="dropdown-item"><a href="/cloud-native/middleware" class="nav-link" aria-label="中间件"><!---->中间件<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="🧑🏼‍💻运开"><span class="title"><!---->🧑🏼‍💻运开</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/code/" class="nav-link" aria-label="Coding"><span class="font-icon icon iconfont icon-code" style=""></span>Coding<!----></a></li><li class="dropdown-item"><a href="/code/Django" class="nav-link" aria-label="Django"><!---->Django<!----></a></li><li class="dropdown-item"><a href="/code/Golang" class="nav-link" aria-label="Golang"><!---->Golang<!----></a></li><li class="dropdown-item"><a href="/code/FAQ" class="nav-link" aria-label="F A Q"><!---->F A Q<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/tools/" class="nav-link" aria-label="🛠️工具推荐"><!---->🛠️工具推荐<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="手册"><span class="title"><span class="font-icon icon iconfont icon-guide" style=""></span>手册</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/guide/shell.html" class="nav-link" aria-label="Shell"><!---->Shell<!----></a></li><li class="dropdown-item"><a href="/guide/markdown" class="nav-link" aria-label="Markdown"><!---->Markdown<!----></a></li><li class="dropdown-item"><a href="/guide/vuepress" class="nav-link" aria-label="VuePress"><!---->VuePress<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/read/" class="nav-link" aria-label="阅读"><span class="font-icon icon iconfont icon-read" style=""></span>阅读<!----></a></div><div class="nav-item hide-in-mobile"><a href="/links.html" class="nav-link" aria-label="友链"><span class="font-icon icon iconfont icon-link" style=""></span>友链<!----></a></div><div class="nav-item hide-in-mobile"><a href="https://www.travellings.cn/go.html" rel="noopener noreferrer" target="_blank" aria-label="🚇开往" class="nav-link"><!---->🚇开往<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div></nav><!--[--><!----><!--]--></div><div class="navbar-end"><!--[--><!----><!--]--><!--[--><button type="button" class="search-pro-button" role="search" aria-label="搜索"><svg xmlns="http://www.w3.org/2000/svg" class="icon search-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="search icon"><path d="M192 480a256 256 0 1 1 512 0 256 256 0 0 1-512 0m631.776 362.496-143.2-143.168A318.464 318.464 0 0 0 768 480c0-176.736-143.264-320-320-320S128 303.264 128 480s143.264 320 320 320a318.016 318.016 0 0 0 184.16-58.592l146.336 146.368c12.512 12.48 32.768 12.48 45.28 0 12.48-12.512 12.48-32.768 0-45.28"></path></svg><div class="placeholder">搜索</div><div class="key-hints"><kbd class="key">Ctrl</kbd><kbd class="key">K</kbd></div></button><!--]--><div class="nav-item hide-in-mobile"><button class="outlook-button" tabindex="-1" ariahidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg><div class="outlook-dropdown"><!----></div></button></div><!--[--><!----><!--]--><button class="toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span class="button-container"><span class="button-top"></span><span class="button-middle"></span><span class="button-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside class="sidebar" id="sidebar"><!--[--><!----><!--]--><ul class="sidebar-links"></ul><!--[--><!----><!--]--></aside><!--[--><main class="page" id="main-content"><!----></main><!--]--><!----></div><!--]--><!----><!----><!--]--></div>
+    <script type="module" src="/assets/app-0dd9c6d3.js" defer></script>
+  </body>
+</html>

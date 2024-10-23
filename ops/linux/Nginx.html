@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-beta.61" />
+    <meta name="theme" content="VuePress Theme Hope" />
+    <meta property="og:url" content="https://docs.lizili.online/ops/linux/Nginx.html"><meta property="og:title" content="Nginx"><meta property="og:description" content="请注意 本文内容可能已过时，请自行甄别。 安装 安装Nginx nginx默认使用80端口，请确保80未被使用 Nginx安装包 wget http://www.nginx.org/download/nginx-[version].tar.gz"><meta property="og:type" content="article"><meta property="og:image" content="https://docs.lizili.online/"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-04-23T05:06:11.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image:alt" content="Nginx"><meta property="article:author" content="z"><meta property="article:tag" content="nginx"><meta property="article:modified_time" content="2024-04-23T05:06:11.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Nginx","image":["https://docs.lizili.online/"],"dateModified":"2024-04-23T05:06:11.000Z","author":[{"@type":"Person","name":"z","url":"https://docs.lizili.online"}]}</script><script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?088df8f788eb6cfa86e86b04cee94211";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+        </script><title>Nginx</title><meta name="description" content="请注意 本文内容可能已过时，请自行甄别。 安装 安装Nginx nginx默认使用80端口，请确保80未被使用 Nginx安装包 wget http://www.nginx.org/download/nginx-[version].tar.gz">
+    <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d1e1f;
+      }
+
+      html,
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <link rel="preload" href="/assets/style-cf6f3347.css" as="style"><link rel="stylesheet" href="/assets/style-cf6f3347.css">
+    <link rel="modulepreload" href="/assets/app-0dd9c6d3.js"><link rel="modulepreload" href="/assets/framework-abbf9d44.js"><link rel="modulepreload" href="/assets/Nginx.html-481f3490.js"><link rel="modulepreload" href="/assets/Nginx.html-03153567.js">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="skip-link sr-only">跳至主要內容</a><!--]--><div class="theme-container has-toc"><!--[--><header class="navbar" id="navbar"><div class="navbar-start"><button class="toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><a href="/" class="brand"><img class="logo" src="/logo.png" alt><!----><!----></a><!--[--><!----><!--]--></div><div class="navbar-center"><!--[--><!----><!--]--><nav class="nav-links"><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="Linux"><span class="title"><span class="font-icon icon iconfont icon-linux" style=""></span>Linux</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/ops/linux" class="nav-link active" aria-label="运维"><!---->运维<!----></a></li><li class="dropdown-item"><a href="/ops/GitOps" class="nav-link" aria-label="GitOps"><!---->GitOps<!----></a></li><li class="dropdown-item"><a href="/ops/monitor" class="nav-link" aria-label="Monitor"><!---->Monitor<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="☁️云原生"><span class="title"><!---->☁️云原生</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/cloud-native/kubernetes" class="nav-link" aria-label="Kubernetes"><!---->Kubernetes<!----></a></li><li class="dropdown-item"><a href="/cloud-native/backup" class="nav-link" aria-label="备份"><!---->备份<!----></a></li><li class="dropdown-item"><a href="/cloud-native/middleware" class="nav-link" aria-label="中间件"><!---->中间件<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="🧑🏼‍💻运开"><span class="title"><!---->🧑🏼‍💻运开</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/code/" class="nav-link" aria-label="Coding"><span class="font-icon icon iconfont icon-code" style=""></span>Coding<!----></a></li><li class="dropdown-item"><a href="/code/Django" class="nav-link" aria-label="Django"><!---->Django<!----></a></li><li class="dropdown-item"><a href="/code/Golang" class="nav-link" aria-label="Golang"><!---->Golang<!----></a></li><li class="dropdown-item"><a href="/code/FAQ" class="nav-link" aria-label="F A Q"><!---->F A Q<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/tools/" class="nav-link" aria-label="🛠️工具推荐"><!---->🛠️工具推荐<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="手册"><span class="title"><span class="font-icon icon iconfont icon-guide" style=""></span>手册</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/guide/shell.html" class="nav-link" aria-label="Shell"><!---->Shell<!----></a></li><li class="dropdown-item"><a href="/guide/markdown" class="nav-link" aria-label="Markdown"><!---->Markdown<!----></a></li><li class="dropdown-item"><a href="/guide/vuepress" class="nav-link" aria-label="VuePress"><!---->VuePress<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/read/" class="nav-link" aria-label="阅读"><span class="font-icon icon iconfont icon-read" style=""></span>阅读<!----></a></div><div class="nav-item hide-in-mobile"><a href="/links.html" class="nav-link" aria-label="友链"><span class="font-icon icon iconfont icon-link" style=""></span>友链<!----></a></div><div class="nav-item hide-in-mobile"><a href="https://www.travellings.cn/go.html" rel="noopener noreferrer" target="_blank" aria-label="🚇开往" class="nav-link"><!---->🚇开往<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div></nav><!--[--><!----><!--]--></div><div class="navbar-end"><!--[--><!----><!--]--><!--[--><button type="button" class="search-pro-button" role="search" aria-label="搜索"><svg xmlns="http://www.w3.org/2000/svg" class="icon search-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="search icon"><path d="M192 480a256 256 0 1 1 512 0 256 256 0 0 1-512 0m631.776 362.496-143.2-143.168A318.464 318.464 0 0 0 768 480c0-176.736-143.264-320-320-320S128 303.264 128 480s143.264 320 320 320a318.016 318.016 0 0 0 184.16-58.592l146.336 146.368c12.512 12.48 32.768 12.48 45.28 0 12.48-12.512 12.48-32.768 0-45.28"></path></svg><div class="placeholder">搜索</div><div class="key-hints"><kbd class="key">Ctrl</kbd><kbd class="key">K</kbd></div></button><!--]--><div class="nav-item hide-in-mobile"><button class="outlook-button" tabindex="-1" ariahidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg><div class="outlook-dropdown"><!----></div></button></div><!--[--><!----><!--]--><button class="toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span class="button-container"><span class="button-top"></span><span class="button-middle"></span><span class="button-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside class="sidebar" id="sidebar"><!--[--><!----><!--]--><ul class="sidebar-links"><li><!--[--><a href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html" class="nav-link sidebar-link sidebar-page" aria-label="Ansible"><!---->Ansible<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/Centos9.html" class="nav-link sidebar-link sidebar-page" aria-label="Centos 9 init"><!---->Centos 9 init<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/SaltStack%E5%AD%A6%E4%B9%A0.html" class="nav-link sidebar-link sidebar-page" aria-label="SaltStack"><!---->SaltStack<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/Docker%E5%AD%A6%E4%B9%A0.html" class="nav-link sidebar-link sidebar-page" aria-label="Docker"><!---->Docker<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-current="page" href="/ops/linux/Nginx.html" class="router-link-active router-link-exact-active nav-link active sidebar-link sidebar-page active" aria-label="Nginx"><!---->Nginx<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#安装" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="安装"><!---->安装<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#日志格式" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="日志格式"><!---->日志格式<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#自定义的格式" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="自定义的格式"><!---->自定义的格式<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#lua获取请求参数" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="lua获取请求参数"><!---->lua获取请求参数<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#安装依赖" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="安装依赖"><!---->安装依赖<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#下载安装包" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="下载安装包"><!---->下载安装包<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#安装luajit" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="安装LuaJIT"><!---->安装LuaJIT<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#编译安装nginx" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="编译安装nginx"><!---->编译安装nginx<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#测试lua" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="测试lua"><!---->测试lua<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#安装-cjson" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="安装 cjson"><!---->安装 cjson<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#使用lua-去rewrite路由" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="使用lua 去rewrite路由"><!---->使用lua 去rewrite路由<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#相关包" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="相关包"><!---->相关包<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/Nginx.html#nginx负载与反代" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="nginx负载与反代"><!---->nginx负载与反代<!----></a><ul class="sidebar-sub-headers"></ul></li></ul><!--]--></li><li><!--[--><a href="/ops/linux/git.html" class="nav-link sidebar-link sidebar-page" aria-label="Git"><!---->Git<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/redis.html" class="nav-link sidebar-link sidebar-page" aria-label="Redis"><!---->Redis<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/package-rpm.html" class="nav-link sidebar-link sidebar-page" aria-label="rpm包制作"><!---->rpm包制作<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/%E8%A7%A3%E5%8E%8B%E7%BC%A9.html" class="nav-link sidebar-link sidebar-page" aria-label="压缩与解压"><!---->压缩与解压<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/keepalived.html" class="nav-link sidebar-link sidebar-page" aria-label="keepalived"><!---->keepalived<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li></ul><!--[--><!----><!--]--></aside><!--[--><main class="page" id="main-content"><!--[--><!----><nav class="breadcrumb disable"></nav><div class="page-title"><h1><!---->Nginx</h1><div class="page-info"><span class="page-category-info" aria-label="分类🌈" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon category-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="category icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zM147.556 553.478H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zM593.927 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zM730.22 920.502H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z"></path></svg><span class="page-category-item category6 clickable" role="navigation">linux</span><meta property="articleSection" content="linux"></span><span class="page-tag-info" aria-label="标签🏷" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon tag-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="tag icon"><path d="M939.902 458.563L910.17 144.567c-1.507-16.272-14.465-29.13-30.737-30.737L565.438 84.098h-.402c-3.215 0-5.726 1.005-7.634 2.913l-470.39 470.39a10.004 10.004 0 000 14.164l365.423 365.424c1.909 1.908 4.42 2.913 7.132 2.913s5.223-1.005 7.132-2.913l470.39-470.39c2.01-2.11 3.014-5.023 2.813-8.036zm-240.067-72.121c-35.458 0-64.286-28.828-64.286-64.286s28.828-64.285 64.286-64.285 64.286 28.828 64.286 64.285-28.829 64.286-64.286 64.286z"></path></svg><span class="page-tag-item tag1 clickable" role="navigation">nginx</span><meta property="keywords" content="nginx"></span><span class="page-word-info" aria-label="字数🔠" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 2833 字</span><meta property="wordCount" content="2833"></span><span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 9 分钟</span><meta property="timeRequired" content="PT9M"></span><!----></div><hr></div><div class="toc-place-holder"><aside id="toc"><!--[--><!----><!--]--><div class="toc-header">此页内容<!----></div><div class="toc-wrapper"><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#安装" class="router-link-active router-link-exact-active toc-link level2">安装</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#日志格式" class="router-link-active router-link-exact-active toc-link level2">日志格式</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#自定义的格式" class="router-link-active router-link-exact-active toc-link level3">自定义的格式</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#lua获取请求参数" class="router-link-active router-link-exact-active toc-link level2">lua获取请求参数</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#安装依赖" class="router-link-active router-link-exact-active toc-link level3">安装依赖</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#下载安装包" class="router-link-active router-link-exact-active toc-link level3">下载安装包</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#安装luajit" class="router-link-active router-link-exact-active toc-link level3">安装LuaJIT</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#编译安装nginx" class="router-link-active router-link-exact-active toc-link level3">编译安装nginx</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#测试lua" class="router-link-active router-link-exact-active toc-link level3">测试lua</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#安装-cjson" class="router-link-active router-link-exact-active toc-link level3">安装 cjson</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#使用lua-去rewrite路由" class="router-link-active router-link-exact-active toc-link level3">使用lua 去rewrite路由</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#相关包" class="router-link-active router-link-exact-active toc-link level3">相关包</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/Nginx.html#nginx负载与反代" class="router-link-active router-link-exact-active toc-link level2">nginx负载与反代</a></li><!----><!--]--></ul></div><!--[--><!----><!--]--></aside></div><!----><div class="theme-hope-content"><h1 id="" tabindex="-1"><a class="header-anchor" href="#" aria-hidden="true">#</a></h1><div class="hint-container warning"><p class="hint-container-title">请注意</p><p>本文内容可能已过时，请自行甄别。</p></div><h2 id="安装" tabindex="-1"><a class="header-anchor" href="#安装" aria-hidden="true">#</a> 安装</h2><blockquote><p>安装Nginx</p></blockquote><p><strong>nginx默认使用80端口，请确保80未被使用</strong></p><p>Nginx安装包</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">wget</span> http://www.nginx.org/download/nginx-<span class="token punctuation">[</span>version<span class="token punctuation">]</span>.tar.gz
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>Nginx cache purge 模块(可选)</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># wget http://labs.frickle.com/files/ngx_cache_purge-[version].tar.gz</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>编译安装</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>./configure <span class="token punctuation">\</span>
+<span class="token parameter variable">--prefix</span><span class="token operator">=</span>/usr/local/nginx-<span class="token punctuation">[</span>version<span class="token punctuation">]</span> <span class="token punctuation">\</span>
+--with-http_stub_status_module <span class="token punctuation">\</span>
+--with-http_ssl_module <span class="token punctuation">\</span>
+--with-http_realip_module <span class="token punctuation">\</span> 
+--add-module<span class="token operator">=</span><span class="token punctuation">..</span>/ngx_cache_purge-1.3
+
+<span class="token comment"># make</span>
+<span class="token comment"># make install</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>启动</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>/usr/local/nginx-<span class="token punctuation">[</span>version<span class="token punctuation">]</span>/sbin/nginx   <span class="token comment">#启动</span>
+/usr/local/nginx-<span class="token punctuation">[</span>version<span class="token punctuation">]</span>/sbin/nginx <span class="token parameter variable">-t</span> <span class="token comment">#测试，检测配置</span>
+/usr/local/nginx-<span class="token punctuation">[</span>version<span class="token punctuation">]</span>/sbin/nginx <span class="token parameter variable">-s</span> stop
+/usr/local/nginx-<span class="token punctuation">[</span>version<span class="token punctuation">]</span>/sbin/nginx <span class="token parameter variable">-s</span> reload
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>打开浏览器，访问nginx地址，出现welcome nginx则配置成功</p><h2 id="日志格式" tabindex="-1"><a class="header-anchor" href="#日志格式" aria-hidden="true">#</a> 日志格式</h2><p>日志变量(log_format)</p><div class="language-conf line-numbers-mode" data-ext="conf"><pre class="language-conf"><code>$args                    #请求中的参数值
+$query_string            #同 $args
+$arg_NAME                #GET请求中NAME的值
+$is_args                 #如果请求中有参数，值为&quot;?&quot;，否则为空字符串
+$uri                     #请求中的当前URI(不带请求参数，参数位于$args)，可以不同于浏览器传递的$request_uri的值，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名，如&quot;/foo/bar.html&quot;。
+$document_uri            #同 $uri
+$document_root           #当前请求的文档根目录或别名
+$host                    #优先级：HTTP请求行的主机名&gt;&quot;HOST&quot;请求头字段&gt;符合请求的服务器名.请求中的主机头字段，如果请求中的主机头不可用，则为服务器处理请求的服务器名称
+$hostname                #主机名
+$https                   #如果开启了SSL安全模式，值为&quot;on&quot;，否则为空字符串。
+$binary_remote_addr      #客户端地址的二进制形式，固定长度为4个字节
+$body_bytes_sent         #传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的&quot;%B&quot;参数保持兼容
+$bytes_sent              #传输给客户端的字节数
+$connection              #TCP连接的序列号
+$connection_requests     #TCP连接当前的请求数量
+$content_length          #&quot;Content-Length&quot; 请求头字段
+$content_type            #&quot;Content-Type&quot; 请求头字段
+$cookie_name             #cookie名称
+$limit_rate              #用于设置响应的速度限制
+$msec                    #当前的Unix时间戳
+$nginx_version           #nginx版本
+$pid                     #工作进程的PID
+$pipe                    #如果请求来自管道通信，值为&quot;p&quot;，否则为&quot;.&quot;
+$proxy_protocol_addr     #获取代理访问服务器的客户端地址，如果是直接访问，该值为空字符串
+$realpath_root           #当前请求的文档根目录或别名的真实路径，会将所有符号连接转换为真实路径
+$remote_addr             #客户端地址
+$remote_port             #客户端端口
+$remote_user             #用于HTTP基础认证服务的用户名
+$request                 #代表客户端的请求地址
+$request_body            #客户端的请求主体：此变量可在location中使用，将请求主体通过proxy_pass，fastcgi_pass，uwsgi_pass和scgi_pass传递给下一级的代理服务器
+$request_body_file       #将客户端请求主体保存在临时文件中。文件处理结束后，此文件需删除。如果需要之一开启此功能，需要设置client_body_in_file_only。如果将次文件传 递给后端的代理服务器，需要禁用request body，即设置proxy_pass_request_body off，fastcgi_pass_request_body off，uwsgi_pass_request_body off，or scgi_pass_request_body off
+$request_completion      #如果请求成功，值为&quot;OK&quot;，如果请求未完成或者请求不是一个范围请求的最后一部分，则为空
+$request_filename        #当前连接请求的文件路径，由root或alias指令与URI请求生成
+$request_length          #请求的长度 (包括请求的地址，http请求头和请求主体)
+$request_method          #HTTP请求方法，通常为&quot;GET&quot;或&quot;POST&quot;
+$request_time            #处理客户端请求使用的时间,单位为秒，精度毫秒； 从读入客户端的第一个字节开始，直到把最后一个字符发送给客户端后进行日志写入为止。
+$request_uri             #这个变量等于包含一些客户端请求参数的原始URI，它无法修改，请查看$uri更改或重写URI，不包含主机名，例如：&quot;/cnphp/test.php?arg=freemouse&quot;
+$scheme                  #请求使用的Web协议，&quot;http&quot; 或 &quot;https&quot;
+$server_addr             #服务器端地址，需要注意的是：为了避免访问linux系统内核，应将ip地址提前设置在配置文件中
+$server_name             #服务器名
+$server_port             #服务器端口
+$server_protocol         #服务器的HTTP版本，通常为 &quot;HTTP/1.0&quot; 或 &quot;HTTP/1.1&quot;
+$status                  #HTTP响应代码
+$time_iso8601            #服务器时间的ISO 8610格式
+$time_local              #服务器时间（LOG Format 格式）
+$cookie_NAME             #客户端请求Header头中的cookie变量，前缀&quot;$cookie_&quot;加上cookie名称的变量，该变量的值即为cookie名称的值
+$http_NAME               #匹配任意请求头字段；变量名中的后半部分NAME可以替换成任意请求头字段，如在配置文件中需要获取http请求头：&quot;Accept-Language&quot;，$http_accept_language即可
+$http_cookie
+$http_host               #请求地址，即浏览器中你输入的地址（IP或域名）
+$http_referer            #url跳转来源,用来记录从那个页面链接访问过来的
+$http_user_agent         #用户终端浏览器等信息
+$http_x_forwarded_for  #客户端地址(有反向代理时使用)
+$sent_http_NAME          #可以设置任意http响应头字段；变量名中的后半部分NAME可以替换成任意响应头字段，如需要设置响应头Content-length，$sent_http_content_length即可
+$sent_http_cache_control
+$sent_http_connection
+$sent_http_content_type
+$sent_http_keep_alive
+$sent_http_last_modified
+$sent_http_location
+$sent_http_transfer_encoding
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>默认日志格式</p><div class="language-conf line-numbers-mode" data-ext="conf"><pre class="language-conf"><code>log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot;;
+
+#main为日志格式名
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>可以根据自己的情况定义不同的log格式.然后在日志的 path后调用 access_log logs/it_access.log main;</p><p>当日志文件中记录的值为&quot;-&quot;时，表示为空 .</p><h3 id="自定义的格式" tabindex="-1"><a class="header-anchor" href="#自定义的格式" aria-hidden="true">#</a> 自定义的格式</h3><div class="language-conf line-numbers-mode" data-ext="conf"><pre class="language-conf"><code>log_format logstash &#39;$remote_addr|$http_host|$request|$http_referer|$status |$http_user_agent|$request_time|$remote_user&#39;;
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="lua获取请求参数" tabindex="-1"><a class="header-anchor" href="#lua获取请求参数" aria-hidden="true">#</a> lua获取请求参数</h2><figure><img src="/assets/2023-07-22-11-21-04-7dcd5067.png" alt="conf" width="300" height="200" tabindex="0" loading="lazy"><figcaption>conf</figcaption></figure><blockquote><p>下载的所有包，放在了/opt/packages目录下</p></blockquote><h3 id="安装依赖" tabindex="-1"><a class="header-anchor" href="#安装依赖" aria-hidden="true">#</a> 安装依赖</h3><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>yum <span class="token parameter variable">-y</span> <span class="token function">install</span> gcc gcc-c++ glib* <span class="token function">make</span> autoconf openssl openssl-devel <span class="token punctuation">\</span>
+libxslt-devel gd gd-devel pcre pcre-devel  readline-devel  <span class="token function">wget</span> <span class="token function">curl</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="下载安装包" tabindex="-1"><a class="header-anchor" href="#下载安装包" aria-hidden="true">#</a> 下载安装包</h3><h4 id="nginx" tabindex="-1"><a class="header-anchor" href="#nginx" aria-hidden="true">#</a> nginx</h4><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>
+<span class="token function">wget</span> http://nginx.org/download/nginx-1.12.2.tar.gz
+
+<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> nginx-1.12.2.tar.gz
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h4 id="ngx-devel-kit" tabindex="-1"><a class="header-anchor" href="#ngx-devel-kit" aria-hidden="true">#</a> ngx_devel_kit</h4><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">wget</span> https://github.com/simplresty/ngx_devel_kit/archive/v0.3.0.tar.gz
+<span class="token function">tar</span> zxvf v0.3.0.tar.gz
+
+<span class="token comment"># 放着，一会编译ngxin时导入。</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h4 id="lua-nginx-module" tabindex="-1"><a class="header-anchor" href="#lua-nginx-module" aria-hidden="true">#</a> lua-nginx-module</h4><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">wget</span> https://github.com/openresty/lua-nginx-module/archive/v0.10.13.tar.gz
+<span class="token function">tar</span> zxvf v0.10.13.tar.gz
+
+<span class="token comment"># 放着，一会编译ngxin时导入。</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="安装luajit" tabindex="-1"><a class="header-anchor" href="#安装luajit" aria-hidden="true">#</a> 安装LuaJIT</h3><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">wget</span> http://luajit.org/download/LuaJIT-2.0.5.tar.gz
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span>  LuaJIT-2.0.5.tar.gz
+<span class="token builtin class-name">cd</span> LuaJIT-2.0.5
+<span class="token function">make</span> <span class="token function">install</span> <span class="token assign-left variable">PREFIX</span><span class="token operator">=</span>/usr/local/LuaJIT
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>输出 以下内容则成功</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token operator">==</span><span class="token operator">==</span> Successfully installed LuaJIT <span class="token number">2.0</span>.5 to /usr/local/LuaJIT <span class="token operator">==</span><span class="token operator">==</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>修改环境变量</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">LUAJIT_LIB</span><span class="token operator">=</span>/usr/local/LuaJIT/lib
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">LUAJIT_INC</span><span class="token operator">=</span>/usr/local/LuaJIT/include/luajit-2.0
+
+<span class="token builtin class-name">source</span> /etc/profile
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="编译安装nginx" tabindex="-1"><a class="header-anchor" href="#编译安装nginx" aria-hidden="true">#</a> 编译安装nginx</h3><p>查看编译参数, 避免之前的模块路径错误</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>nginx <span class="token parameter variable">-V</span> 
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>新建用户，不新建，configure时取消参数--user=nginx</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">useradd</span> <span class="token parameter variable">-M</span> <span class="token parameter variable">-s</span> /sbin/nologin nginx 
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>编译安装</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>./configure <span class="token parameter variable">--user</span><span class="token operator">=</span>nginx <span class="token parameter variable">--group</span><span class="token operator">=</span>nginx <span class="token parameter variable">--prefix</span><span class="token operator">=</span>/usr/local/nginx --with-file-aio <span class="token punctuation">\</span>
+--with-http_ssl_module --with-http_realip_module --with-http_addition_module <span class="token punctuation">\</span>
+--with-http_xslt_module --with-http_image_filter_module --with-http_sub_module <span class="token punctuation">\</span>
+--with-http_dav_module --with-http_flv_module --with-http_mp4_module <span class="token punctuation">\</span>
+--with-http_gunzip_module --with-http_gzip_static_module <span class="token punctuation">\</span>
+--with-http_auth_request_module --with-http_random_index_module <span class="token punctuation">\</span>
+--with-http_secure_link_module --with-http_degradation_module <span class="token punctuation">\</span>
+--with-http_stub_status_module <span class="token punctuation">\</span>
+--with-ld-opt<span class="token operator">=</span>-Wl,-rpath,/usr/local/LuaJIT/lib <span class="token punctuation">\</span>
+--add-module<span class="token operator">=</span>/opt/packages/ngx_devel_kit-0.3.0 <span class="token punctuation">\</span>
+--add-module<span class="token operator">=</span>/opt/packages/lua-nginx-module-0.10.13
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">make</span> <span class="token parameter variable">-j2</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token function">install</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h3 id="测试lua" tabindex="-1"><a class="header-anchor" href="#测试lua" aria-hidden="true">#</a> 测试lua</h3><p>修改<code>nginx.conf</code> 的<code>server</code> 添加如下</p><div class="language-conf line-numbers-mode" data-ext="conf"><pre class="language-conf"><code>location /lua { 
+    default_type &#39;text/plain&#39;; 
+    content_by_lua &#39;ngx.say(&quot;lua install success&quot;)&#39;; 
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>重载nginx</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>nginx <span class="token parameter variable">-s</span> reload
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>请求</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">curl</span> http://127.0.0.1/lua
+
+<span class="token comment"># lua install success </span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="安装-cjson" tabindex="-1"><a class="header-anchor" href="#安装-cjson" aria-hidden="true">#</a> 安装 cjson</h3><p><mark>如果需要lua解析json，可安装此模块</mark></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">wget</span> http://www.kyne.com.au/~mark/software/download/lua-cjson-2.1.0.tar.gz
+
+<span class="token function">tar</span> xvf lua-cjson-2.1.0.ta.gz
+
+<span class="token builtin class-name">cd</span> lua-cjson-2.1.0
+
+<span class="token function">make</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如若报错如下</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>cc <span class="token parameter variable">-c</span> <span class="token parameter variable">-O3</span> <span class="token parameter variable">-Wall</span> <span class="token parameter variable">-pedantic</span> <span class="token parameter variable">-DNDEBUG</span>  -I/usr/local/include <span class="token parameter variable">-fpic</span> <span class="token parameter variable">-o</span> lua_cjson.o lua_cjson.c
+lua_cjson.c:43:17: 致命错误：lua.h：没有那个文件或目录
+ <span class="token comment">#include &lt;lua.h&gt;</span>
+                 ^
+编译中断。
+make: *** <span class="token punctuation">[</span>lua_cjson.o<span class="token punctuation">]</span> 错误 <span class="token number">1</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>修改<code>Makefile</code> 这两处</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>PREFIX <span class="token operator">=</span>            /usr/local/LuaJIT
+LUA_INCLUDE_DIR <span class="token operator">=</span>   <span class="token variable"><span class="token variable">$(</span>PREFIX<span class="token variable">)</span></span>/include/luajit-2.0
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>复制<code>cjson.so</code></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code> <span class="token function">cp</span> cjson.so /usr/local/LuaJIT/lib/lua/5.1/
+ <span class="token function">chmod</span> <span class="token number">755</span> /usr/local/LuaJIT/lib/lua/5.1/cjson.so 
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="使用lua-去rewrite路由" tabindex="-1"><a class="header-anchor" href="#使用lua-去rewrite路由" aria-hidden="true">#</a> 使用lua 去rewrite路由</h3><div class="language-conf line-numbers-mode" data-ext="conf"><pre class="language-conf"><code>location /ztest {
+	# 请求体的size大于nginx配置里的client_body_buffer_size
+	# 则会导致请求体被缓冲到磁盘临时文件里，client_body_buffer_size默认是8k或者16k
+	# 如果考虑性能，可以使用ngx.req.get_body_file()，见后续
+	
+	client_max_body_size  100m ;
+    client_body_buffer_size  100m ;
+    set $proxy &#39;&#39;;
+        rewrite_by_lua_block {
+            local request_method = ngx.var.request_method
+            if request_method == &quot;GET&quot; then
+                local arg = ngx.req.get_uri_args()[&quot;proxy&quot;] or 0
+                ngx.var.proxy = arg
+            elseif request_method == &quot;POST&quot; then
+                ngx.req.read_body()
+                local jkdata = ngx.req.get_body_data()
+                --ngx.print(jkdata)
+                if jkdata then
+                	--如果传进来的是 json 通过这种方式解析，
+                    --cjson = require &quot;cjson&quot;
+                    --jkval = cjson.decode(jkdata)
+                    --ngx.var.proxy = valp[&quot;proxy&quot;]
+                    # 这里测试下，使用正则去匹配了IP
+                    ngx.var.proxy = jkdata:match(&quot;(%d+%.%d+%.%d+%.%d+)&quot;)
+                    --ngx.var.proxy = jkval[&quot;proxy&quot;]
+                end
+            end
+        }
+    include     /usr/local/nginx/conf/uwsgi_params;
+    proxy_pass  $proxy:18001;
+    access_log logs/aaa_access.log;
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>ngx.req.get_body_file()</p><div class="language-conf line-numbers-mode" data-ext="conf"><pre class="language-conf"><code>ngx.req.read_body()
+body_data = ngx.req.get_body_data()
+if not body_data then
+    local datafile = ngx.req.get_body_file()
+    if not datafile then
+        error_code = 1
+        error_msg = &quot;no request body found&quot;
+    else
+        local fh, err = io.open(datafile, &quot;r&quot;)
+        if not fh then
+            error_code = 2
+            error_msg = &quot;failed to open &quot; .. tostring(datafile) .. &quot;for reading: &quot; .. tostring(err)
+        else
+            fh:seek(&quot;set&quot;)
+            body_data = fh:read(&quot;*a&quot;)
+            fh:close()
+            if body_data == &quot;&quot; then
+                error_code = 3
+                error_msg = &quot;request body is empty&quot;
+            end
+        end
+    end
+ end
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="相关包" tabindex="-1"><a class="header-anchor" href="#相关包" aria-hidden="true">#</a> 相关包</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>链接: https://pan.baidu.com/s/1nq9pOQO7uj88DwfHaT0EDg 提取码: p3fh
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h2 id="nginx负载与反代" tabindex="-1"><a class="header-anchor" href="#nginx负载与反代" aria-hidden="true">#</a> nginx负载与反代</h2><blockquote><p>nginx 负载</p></blockquote><p>新建配置文件blance-test.conf</p><p><strong>在nginx.conf 中include blance-test.conf</strong></p><div class="language-conf line-numbers-mode" data-ext="conf"><pre class="language-conf"><code>upstream blance-test {
+    server 192.168.1.11:80;
+    server 192.168.1.22:80;
+}
+server
+{
+    listen 80;
+    server_name www.example.com; 
+    location / {
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+        proxy_pass http://blance-test;
+    }
+    access_log logs/blance-test_access.log;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>⚠️ <code>proxy_set_header....</code></p><p>重点看下proxy_set_header X-Forwarded-For,当使用了代理时，web服务器无法取得真实IP，为了避免这个情况，代理服务器通常会增加一个叫做x_forwarded_for的头信息，连接它的客户端IP（即客户端IP）加到这个头信息里，这样就能保证网站的web服务器能获取到真实IP</p><p><code>$host</code>: 请求中的主机头(Host)字段，如果请求中的主机头不可用或者空，则为处理请求的server名称(处理请求的server的server_name的值)。小写，不含端口。</p><p><code>$remote_addr;</code> 客户端的IP地址（中间无代理则是真实客户端IP，有代理则是代理IP）</p><p><code>$proxy_add_x_forwarded_for;</code> 就是<code>$http_x_forwarded_for</code>加上<code>$remote_addr </code></p><p>官方解释</p><blockquote><p>$proxy_add_x_forwarded_for</p><p>the “X-Forwarded-For” client request header field with the $remote_addr variable appended to it, separated by a comma. If the “X-Forwarded-For” field is not present in the client request header, the $proxy_add_x_forwarded_for variable is equal to the $remote_addr variable.</p></blockquote><blockquote><p>nginx 反向代理</p></blockquote><p><em><strong>可选配置，与http同级</strong></em></p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>   client_max_body_size 50m; #缓冲区代理缓冲用户端请求的最大字节数
+    client_body_buffer_size 256k;
+    client_header_timeout 3m;
+    client_body_timeout 3m;
+    send_timeout 3m;
+    proxy_connect_timeout 300s; #nginx跟后端服务器连接超时时间(代理连接超时)
+    proxy_read_timeout 300s; #连接成功后，后端服务器响应时间(代理接收超时)
+    proxy_send_timeout 300s;
+    proxy_buffer_size 64k; #设置代理服务器（nginx）保存用户头信息的缓冲区大小
+    proxy_buffers 4 32k; #proxy_buffers缓冲区，网页平均在32k以下的话，这样设置
+    proxy_busy_buffers_size 64k; #高负荷下缓冲大小（proxy_buffers*2）
+    proxy_temp_file_write_size 64k; #设定缓存文件夹大小，大于这个值，将从upstream服务器传递请求，而不缓冲到磁盘
+    proxy_ignore_client_abort on; #不允许代理端主动关闭连接
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>新建配置文件reverse-proxy.conf<em><strong>然后在nginx.conf 中include reverse-proxy.conf</strong></em></p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>    server {
+        listen          7001;
+        server_name     192.168.1.202:7001;
+        charset utf-8;
+        location /console {
+           # proxy_set_header Host $host:$proxy_port;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+            proxy_pass http://192.168.1.11:7001;
+        }
+        access_log logs/192.168.1.11:7001_access.log;
+    }
+    server {
+        listen          8001;
+        server_name     192.168.1.202:8001;
+        charset utf-8;
+        location / {
+            proxy_set_header Host $host:$proxy_port;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+            proxy_pass http://192.168.1.11:8001;
+        }
+        access_log logs/192.168.1.11:8001_access.log;
+    }
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这里要说明下</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>server_name 
+#主要用于配置基于名称的虚拟主机，可匹配正则，如果没有域名可填写IP，不填或随便填写一个
+#nginx 根据 server_name 匹配 HTTP 请求头的 host，去决定使用那个 server
+#如果都没有匹配则使用默认的。如果没有默认就是第一个server
+
+$http_host 和 $host的区别
+
+$host 上边描述过，主机头(Host)字段，如果不可用或空就是server_name的值。
+$http_host  可以理解请求地址，即浏览器中你输入的地址（IP或域名）
+那么这两个使用哪个好一些呢？
+如果Host请求头部没有出现在请求头中，则$http_host值为空，但是$host值为主域名，
+一般而言，会用$host代替$http_host，避免http请求中丢失Host头部的情况下Host不被重写。
+如果对端口又要求可加上 :$proxy_port
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#.24proxy_add_x_forwarded_for" target="_blank" rel="noopener noreferrer">官方关于nginx 代理模块的文章<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p><blockquote><p>Nginx访问日志 IP统计 awk &#39;{print $1}&#39; access.log | sort | uniq -c|sort -n</p></blockquote></div><!----><footer class="page-meta"><!----><div class="meta-item git-info"><!----><!----></div></footer><nav class="page-nav"><a href="/ops/linux/Docker%E5%AD%A6%E4%B9%A0.html" class="nav-link prev" aria-label="Docker"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><!---->Docker</div></a><a href="/ops/linux/git.html" class="nav-link next" aria-label="Git"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">Git<!----></div></a></nav><div class="giscus-wrapper input-top" id="comment" style="display:block;"><div class="loading-icon-wrapper" style="display:flex;align-items:center;justify-content:center;height:96px"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" preserveAspectRatio="xMidYMid" viewBox="25 25 50 50"><animateTransform attributeName="transform" type="rotate" dur="2s" keyTimes="0;1" repeatCount="indefinite" values="0;360"></animateTransform><circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><animate attributeName="stroke-dasharray" dur="1.5s" keyTimes="0;0.5;1" repeatCount="indefinite" values="1,200;90,200;1,200"></animate><animate attributeName="stroke-dashoffset" dur="1.5s" keyTimes="0;0.5;1" repeatCount="indefinite" values="0;-35px;-125px"></animate></circle></svg></div></div><!----><!--]--></main><!--]--><!----></div><!--]--><!----><!----><!--]--></div>
+    <script type="module" src="/assets/app-0dd9c6d3.js" defer></script>
+  </body>
+</html>
