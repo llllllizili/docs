@@ -1,0 +1,22 @@
+import{_ as a,X as n,Y as s,a3 as e}from"./framework-abbf9d44.js";const t={},i=e(`<div class="hint-container danger"><p class="hint-container-title">请注意</p><p>本文内容可能已过时，请自行甄别。</p></div><h2 id="参数格式" tabindex="-1"><a class="header-anchor" href="#参数格式" aria-hidden="true">#</a> 参数格式</h2><p><code>UserParameter=key[*],command</code></p><table><thead><tr><th>参数</th><th>描述</th></tr></thead><tbody><tr><td>Key</td><td>唯一. [*]表示里面可以传递多个参数</td></tr><tr><td>Command</td><td>需要执行的脚本，key的[]里面的参数一一对应$1到$9，一共9个参数。$0表示脚本命令.</td></tr></tbody></table><h2 id="功能开启" tabindex="-1"><a class="header-anchor" href="#功能开启" aria-hidden="true">#</a> 功能开启</h2><p>配置文件中,开启include</p><p><code>Include=/etc/zabbix/zabbix_agentd.d/*.conf</code></p><h2 id="新建配置" tabindex="-1"><a class="header-anchor" href="#新建配置" aria-hidden="true">#</a> 新建配置</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment">#新建配置文件</span>
+<span class="token punctuation">[</span>root@elk zabbix_agentd.d<span class="token punctuation">]</span><span class="token comment"># ls</span>
+mykey.conf  userparameter_mysql.conf
+
+<span class="token comment">#编辑配置文件</span>
+<span class="token punctuation">[</span>root@elk zabbix_agentd.d<span class="token punctuation">]</span><span class="token comment"># cat mykey.conf </span>
+UserParameter <span class="token operator">=</span> mykey,/etc/zabbix/script/test.sh
+
+<span class="token comment">#编辑脚本(路径自定义)</span>
+<span class="token punctuation">[</span>root@elk zabbix_agentd.d<span class="token punctuation">]</span><span class="token comment"># cat /etc/zabbix/script/test.sh</span>
+<span class="token comment">#!/usr/bin/env bash</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&#39;1234324&#39;</span> 
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="重启服务" tabindex="-1"><a class="header-anchor" href="#重启服务" aria-hidden="true">#</a> 重启服务</h2><p><code>systemctl restart zabbix-agent.service</code></p><h2 id="添加监控项" tabindex="-1"><a class="header-anchor" href="#添加监控项" aria-hidden="true">#</a> 添加监控项</h2><p>前端web页面,相关主机上<code>创建监控项</code>即可,键值使用定义的key,如这里的<code>mykey</code>.信息类型根据实际情况指定</p><h2 id="其他" tabindex="-1"><a class="header-anchor" href="#其他" aria-hidden="true">#</a> 其他</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token assign-left variable">UserParameter</span><span class="token operator">=</span>ping<span class="token punctuation">[</span>*<span class="token punctuation">]</span>,echo <span class="token variable">$1</span>
+web键值输入
+ping<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> - 将一直返回0
+ping<span class="token punctuation">[</span>aaa<span class="token punctuation">]</span> - 将一直返回 <span class="token string">&#39;aaa&#39;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>统计一个文件中有多少行被匹配?
+<span class="token assign-left variable">UserParameter</span><span class="token operator">=</span>wc<span class="token punctuation">[</span>*<span class="token punctuation">]</span>,grep <span class="token parameter variable">-c</span> <span class="token string">&quot;<span class="token variable">$2</span>&quot;</span> <span class="token variable">$1</span>
+如下方法将会返回文件中出现指定字符的行数
+wc<span class="token punctuation">[</span>/etc/passwd,root<span class="token punctuation">]</span>
+wc<span class="token punctuation">[</span>/etc/services,zabbix<span class="token punctuation">]</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,16),c=[i];function d(l,r){return n(),s("div",null,c)}const p=a(t,[["render",d],["__file","Zabbix自定义key.html.vue"]]);export{p as default};

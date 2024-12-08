@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-beta.61" />
+    <meta name="theme" content="VuePress Theme Hope" />
+    <meta property="og:url" content="https://docs.lizili.online/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html"><meta property="og:title" content="Ansible"><meta property="og:description" content="请注意 本文内容可能已过时，请自行甄别。 前言 Ansible is Simple IT Automation——简单的自动化IT工具，可以实现 批量系统配置、批量程序部署、批量运行命令等功能，简而言之，就是 分布式集中管理工具， 通俗的讲就是批量在远端服务器上执行命令。其实，ansible自身不具备部署能力的，只是提供框架，其核心为模块"><meta property="og:type" content="article"><meta property="og:image" content="https://docs.lizili.online/"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-04-23T05:06:11.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image:alt" content="Ansible"><meta property="article:author" content="z"><meta property="article:tag" content="ansible"><meta property="article:modified_time" content="2024-04-23T05:06:11.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Ansible","image":["https://docs.lizili.online/"],"dateModified":"2024-04-23T05:06:11.000Z","author":[{"@type":"Person","name":"z","url":"https://docs.lizili.online"}]}</script><script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?088df8f788eb6cfa86e86b04cee94211";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+        </script><title>Ansible</title><meta name="description" content="请注意 本文内容可能已过时，请自行甄别。 前言 Ansible is Simple IT Automation——简单的自动化IT工具，可以实现 批量系统配置、批量程序部署、批量运行命令等功能，简而言之，就是 分布式集中管理工具， 通俗的讲就是批量在远端服务器上执行命令。其实，ansible自身不具备部署能力的，只是提供框架，其核心为模块">
+    <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d1e1f;
+      }
+
+      html,
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <link rel="preload" href="/assets/style-cf6f3347.css" as="style"><link rel="stylesheet" href="/assets/style-cf6f3347.css">
+    <link rel="modulepreload" href="/assets/app-645cb3a2.js"><link rel="modulepreload" href="/assets/framework-abbf9d44.js"><link rel="modulepreload" href="/assets/ansible学习.html-00dee982.js"><link rel="modulepreload" href="/assets/ansible学习.html-91311377.js">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="skip-link sr-only">跳至主要內容</a><!--]--><div class="theme-container has-toc"><!--[--><header class="navbar" id="navbar"><div class="navbar-start"><button class="toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><a href="/" class="brand"><img class="logo" src="/logo.png" alt><!----><!----></a><!--[--><!----><!--]--></div><div class="navbar-center"><!--[--><!----><!--]--><nav class="nav-links"><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="Linux"><span class="title"><span class="font-icon icon iconfont icon-linux" style=""></span>Linux</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/ops/linux" class="nav-link active" aria-label="运维"><!---->运维<!----></a></li><li class="dropdown-item"><a href="/ops/GitOps" class="nav-link" aria-label="GitOps"><!---->GitOps<!----></a></li><li class="dropdown-item"><a href="/ops/monitor" class="nav-link" aria-label="Monitor"><!---->Monitor<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="☁️云原生"><span class="title"><!---->☁️云原生</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/cloud-native/kubernetes" class="nav-link" aria-label="Kubernetes"><!---->Kubernetes<!----></a></li><li class="dropdown-item"><a href="/cloud-native/backup" class="nav-link" aria-label="备份"><!---->备份<!----></a></li><li class="dropdown-item"><a href="/cloud-native/middleware" class="nav-link" aria-label="中间件"><!---->中间件<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="🧑🏼‍💻运开"><span class="title"><!---->🧑🏼‍💻运开</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/coder/code" class="nav-link" aria-label="代码"><!---->代码<!----></a></li><li class="dropdown-item"><a href="/coder/ops" class="nav-link" aria-label="运维"><!---->运维<!----></a></li><li class="dropdown-item"><a href="/coder/script" class="nav-link" aria-label="脚本"><!---->脚本<!----></a></li><li class="dropdown-item"><a href="/coder/team" class="nav-link" aria-label="团队"><!---->团队<!----></a></li><li class="dropdown-item"><a href="/coder/faq" class="nav-link" aria-label="FAQ"><span class="font-icon icon iconfont icon-faq" style=""></span>FAQ<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/tools/" class="nav-link" aria-label="🛠️工具推荐"><!---->🛠️工具推荐<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="手册"><span class="title"><span class="font-icon icon iconfont icon-guide" style=""></span>手册</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/guide/shell.html" class="nav-link" aria-label="Shell"><!---->Shell<!----></a></li><li class="dropdown-item"><a href="/guide/markdown" class="nav-link" aria-label="Markdown"><!---->Markdown<!----></a></li><li class="dropdown-item"><a href="/guide/vuepress" class="nav-link" aria-label="VuePress"><!---->VuePress<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/read/" class="nav-link" aria-label="阅读"><span class="font-icon icon iconfont icon-read" style=""></span>阅读<!----></a></div><div class="nav-item hide-in-mobile"><a href="/links.html" class="nav-link" aria-label="友链"><span class="font-icon icon iconfont icon-link" style=""></span>友链<!----></a></div><div class="nav-item hide-in-mobile"><a href="https://www.travellings.cn/go.html" rel="noopener noreferrer" target="_blank" aria-label="🚇开往" class="nav-link"><!---->🚇开往<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div></nav><!--[--><!----><!--]--></div><div class="navbar-end"><!--[--><!----><!--]--><!--[--><button type="button" class="search-pro-button" role="search" aria-label="搜索"><svg xmlns="http://www.w3.org/2000/svg" class="icon search-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="search icon"><path d="M192 480a256 256 0 1 1 512 0 256 256 0 0 1-512 0m631.776 362.496-143.2-143.168A318.464 318.464 0 0 0 768 480c0-176.736-143.264-320-320-320S128 303.264 128 480s143.264 320 320 320a318.016 318.016 0 0 0 184.16-58.592l146.336 146.368c12.512 12.48 32.768 12.48 45.28 0 12.48-12.512 12.48-32.768 0-45.28"></path></svg><div class="placeholder">搜索</div><div class="key-hints"><kbd class="key">Ctrl</kbd><kbd class="key">K</kbd></div></button><!--]--><div class="nav-item hide-in-mobile"><button class="outlook-button" tabindex="-1" ariahidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg><div class="outlook-dropdown"><!----></div></button></div><!--[--><!----><!--]--><button class="toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span class="button-container"><span class="button-top"></span><span class="button-middle"></span><span class="button-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside class="sidebar" id="sidebar"><!--[--><!----><!--]--><ul class="sidebar-links"><li><!--[--><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html" class="router-link-active router-link-exact-active nav-link active sidebar-link sidebar-page active" aria-label="Ansible"><!---->Ansible<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#前言" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="前言"><!---->前言<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#什么是ansible" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="什么是ansible?"><!---->什么是ansible?<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#ansible-的工作流程" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="ansible 的工作流程"><!---->ansible 的工作流程<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#安装ansible" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="安装ansible"><!---->安装ansible<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#配置登录" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="配置登录"><!---->配置登录<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义ansible的节点清单" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="定义Ansible的节点清单"><!---->定义Ansible的节点清单<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#简单的远程操作" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="简单的远程操作"><!---->简单的远程操作<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义变量" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="定义变量"><!---->定义变量<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义主机变量" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="定义主机变量"><!---->定义主机变量<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义组变量" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="定义组变量"><!---->定义组变量<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#嵌套组" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="嵌套组"><!---->嵌套组<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#分离主机和组特定数据" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="分离主机和组特定数据"><!---->分离主机和组特定数据<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#命令参数" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="命令参数"><!---->命令参数<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#pattern" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="Pattern"><!---->Pattern<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#常用模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="常用模块"><!---->常用模块<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#copy模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="copy模块"><!---->copy模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#file模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="file模块"><!---->file模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#cron模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="cron模块"><!---->cron模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#group模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="group模块"><!---->group模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#uesr模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="uesr模块"><!---->uesr模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#yum模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="yum模块"><!---->yum模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#shell模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="shell模块"><!---->shell模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#command模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="command模块"><!---->command模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#raw模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="raw模块"><!---->raw模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#script模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="script模块"><!---->script模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#command-script-shell-raw的区别" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="command,script,shell,raw的区别"><!---->command,script,shell,raw的区别<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#service模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="service模块"><!---->service模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#ping模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="ping模块"><!---->ping模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#get-url" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="get_url"><!---->get_url<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#stat模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="stat模块"><!---->stat模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#template模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="template模块"><!---->template模块<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#模块参数" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="模块参数"><!---->模块参数<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#模块参数案例" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="模块参数案例"><!---->模块参数案例<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#更多模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="更多模块"><!---->更多模块<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#playbook的配置和使用" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="playbook的配置和使用"><!---->playbook的配置和使用<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#官网demo说明" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="官网demo说明"><!---->官网demo说明<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#脚本实例" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="脚本实例"><!---->脚本实例<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#给脚本添加service的调用" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="给脚本添加service的调用"><!---->给脚本添加service的调用<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#给脚本添加copy模块的调用" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="给脚本添加copy模块的调用"><!---->给脚本添加copy模块的调用<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#template模板-支持jinja2" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="template模板（支持jinja2）"><!---->template模板（支持jinja2）<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#执行外部命令的模块" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="执行外部命令的模块"><!---->执行外部命令的模块<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#变量功能" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="变量功能"><!---->变量功能<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#facts" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="facts"><!---->facts<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#自定义变量" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="自定义变量"><!---->自定义变量<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#在操作主机定义变量-来控制client" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="在操作主机定义变量，来控制client"><!---->在操作主机定义变量，来控制client<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#注册变量" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="注册变量"><!---->注册变量<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#语句" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="语句"><!---->语句<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#条件语句" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="条件语句"><!---->条件语句<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#when" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="when"><!---->when<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#循环语句" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="循环语句"><!---->循环语句<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#循环元素支持列表" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="循环元素支持列表"><!---->循环元素支持列表<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#handlers-和-include" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="handlers 和 include"><!---->handlers 和 include<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#roles-使用" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="roles 使用"><!---->roles 使用<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#ansible和saltstack的对比" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="ansible和saltstack的对比"><!---->ansible和saltstack的对比<!----></a><ul class="sidebar-sub-headers"></ul></li></ul><!--]--></li><li><!--[--><a href="/ops/linux/Centos9.html" class="nav-link sidebar-link sidebar-page" aria-label="Centos 9 init"><!---->Centos 9 init<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/SaltStack%E5%AD%A6%E4%B9%A0.html" class="nav-link sidebar-link sidebar-page" aria-label="SaltStack"><!---->SaltStack<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/Docker%E5%AD%A6%E4%B9%A0.html" class="nav-link sidebar-link sidebar-page" aria-label="Docker"><!---->Docker<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/Nginx.html" class="nav-link sidebar-link sidebar-page" aria-label="Nginx"><!---->Nginx<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/git.html" class="nav-link sidebar-link sidebar-page" aria-label="Git"><!---->Git<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/redis.html" class="nav-link sidebar-link sidebar-page" aria-label="Redis"><!---->Redis<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/package-rpm.html" class="nav-link sidebar-link sidebar-page" aria-label="rpm包制作"><!---->rpm包制作<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/%E8%A7%A3%E5%8E%8B%E7%BC%A9.html" class="nav-link sidebar-link sidebar-page" aria-label="压缩与解压"><!---->压缩与解压<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/linux/keepalived.html" class="nav-link sidebar-link sidebar-page" aria-label="keepalived"><!---->keepalived<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li></ul><!--[--><!----><!--]--></aside><!--[--><main class="page" id="main-content"><!--[--><!----><nav class="breadcrumb disable"></nav><div class="page-title"><h1><!---->Ansible</h1><div class="page-info"><span class="page-category-info" aria-label="分类🌈" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon category-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="category icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zM147.556 553.478H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zM593.927 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zM730.22 920.502H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z"></path></svg><span class="page-category-item category8 clickable" role="navigation">自动化工具</span><span class="page-category-item category6 clickable" role="navigation">linux</span><meta property="articleSection" content="自动化工具,linux"></span><span class="page-tag-info" aria-label="标签🏷" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon tag-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="tag icon"><path d="M939.902 458.563L910.17 144.567c-1.507-16.272-14.465-29.13-30.737-30.737L565.438 84.098h-.402c-3.215 0-5.726 1.005-7.634 2.913l-470.39 470.39a10.004 10.004 0 000 14.164l365.423 365.424c1.909 1.908 4.42 2.913 7.132 2.913s5.223-1.005 7.132-2.913l470.39-470.39c2.01-2.11 3.014-5.023 2.813-8.036zm-240.067-72.121c-35.458 0-64.286-28.828-64.286-64.286s28.828-64.285 64.286-64.285 64.286 28.828 64.286 64.285-28.829 64.286-64.286 64.286z"></path></svg><span class="page-tag-item tag4 clickable" role="navigation">ansible</span><meta property="keywords" content="ansible"></span><span class="page-word-info" aria-label="字数🔠" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 5811 字</span><meta property="wordCount" content="5811"></span><span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 19 分钟</span><meta property="timeRequired" content="PT19M"></span><!----></div><hr></div><div class="toc-place-holder"><aside id="toc"><!--[--><!----><!--]--><div class="toc-header">此页内容<!----></div><div class="toc-wrapper"><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#前言" class="router-link-active router-link-exact-active toc-link level2">前言</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#什么是ansible" class="router-link-active router-link-exact-active toc-link level2">什么是ansible?</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#ansible-的工作流程" class="router-link-active router-link-exact-active toc-link level2">ansible 的工作流程</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#安装ansible" class="router-link-active router-link-exact-active toc-link level2">安装ansible</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#配置登录" class="router-link-active router-link-exact-active toc-link level2">配置登录</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义ansible的节点清单" class="router-link-active router-link-exact-active toc-link level2">定义Ansible的节点清单</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#简单的远程操作" class="router-link-active router-link-exact-active toc-link level2">简单的远程操作</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义变量" class="router-link-active router-link-exact-active toc-link level2">定义变量</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义主机变量" class="router-link-active router-link-exact-active toc-link level3">定义主机变量</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#定义组变量" class="router-link-active router-link-exact-active toc-link level3">定义组变量</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#嵌套组" class="router-link-active router-link-exact-active toc-link level3">嵌套组</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#分离主机和组特定数据" class="router-link-active router-link-exact-active toc-link level3">分离主机和组特定数据</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#命令参数" class="router-link-active router-link-exact-active toc-link level2">命令参数</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#pattern" class="router-link-active router-link-exact-active toc-link level2">Pattern</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#常用模块" class="router-link-active router-link-exact-active toc-link level2">常用模块</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#copy模块" class="router-link-active router-link-exact-active toc-link level3">copy模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#file模块" class="router-link-active router-link-exact-active toc-link level3">file模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#cron模块" class="router-link-active router-link-exact-active toc-link level3">cron模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#group模块" class="router-link-active router-link-exact-active toc-link level3">group模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#uesr模块" class="router-link-active router-link-exact-active toc-link level3">uesr模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#yum模块" class="router-link-active router-link-exact-active toc-link level3">yum模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#shell模块" class="router-link-active router-link-exact-active toc-link level3">shell模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#command模块" class="router-link-active router-link-exact-active toc-link level3">command模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#raw模块" class="router-link-active router-link-exact-active toc-link level3">raw模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#script模块" class="router-link-active router-link-exact-active toc-link level3">script模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#command-script-shell-raw的区别" class="router-link-active router-link-exact-active toc-link level3">command,script,shell,raw的区别</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#service模块" class="router-link-active router-link-exact-active toc-link level3">service模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#ping模块" class="router-link-active router-link-exact-active toc-link level3">ping模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#get-url" class="router-link-active router-link-exact-active toc-link level3">get_url</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#stat模块" class="router-link-active router-link-exact-active toc-link level3">stat模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#template模块" class="router-link-active router-link-exact-active toc-link level3">template模块</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#模块参数" class="router-link-active router-link-exact-active toc-link level2">模块参数</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#模块参数案例" class="router-link-active router-link-exact-active toc-link level2">模块参数案例</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#更多模块" class="router-link-active router-link-exact-active toc-link level3">更多模块</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#playbook的配置和使用" class="router-link-active router-link-exact-active toc-link level2">playbook的配置和使用</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#官网demo说明" class="router-link-active router-link-exact-active toc-link level3">官网demo说明</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#脚本实例" class="router-link-active router-link-exact-active toc-link level3">脚本实例</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#给脚本添加service的调用" class="router-link-active router-link-exact-active toc-link level2">给脚本添加service的调用</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#给脚本添加copy模块的调用" class="router-link-active router-link-exact-active toc-link level2">给脚本添加copy模块的调用</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#template模板-支持jinja2" class="router-link-active router-link-exact-active toc-link level2">template模板（支持jinja2）</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#执行外部命令的模块" class="router-link-active router-link-exact-active toc-link level2">执行外部命令的模块</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#变量功能" class="router-link-active router-link-exact-active toc-link level2">变量功能</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#facts" class="router-link-active router-link-exact-active toc-link level3">facts</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#自定义变量" class="router-link-active router-link-exact-active toc-link level3">自定义变量</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#在操作主机定义变量-来控制client" class="router-link-active router-link-exact-active toc-link level2">在操作主机定义变量，来控制client</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#注册变量" class="router-link-active router-link-exact-active toc-link level3">注册变量</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#语句" class="router-link-active router-link-exact-active toc-link level2">语句</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#条件语句" class="router-link-active router-link-exact-active toc-link level3">条件语句</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#when" class="router-link-active router-link-exact-active toc-link level2">when</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#循环语句" class="router-link-active router-link-exact-active toc-link level3">循环语句</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#循环元素支持列表" class="router-link-active router-link-exact-active toc-link level2">循环元素支持列表</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#handlers-和-include" class="router-link-active router-link-exact-active toc-link level3">handlers 和 include</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#roles-使用" class="router-link-active router-link-exact-active toc-link level2">roles 使用</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/linux/ansible%E5%AD%A6%E4%B9%A0.html#ansible和saltstack的对比" class="router-link-active router-link-exact-active toc-link level2">ansible和saltstack的对比</a></li><!----><!--]--></ul></div><!--[--><!----><!--]--></aside></div><!----><div class="theme-hope-content"><h1 id="" tabindex="-1"><a class="header-anchor" href="#" aria-hidden="true">#</a></h1><div class="hint-container danger"><p class="hint-container-title">请注意</p><p>本文内容可能已过时，请自行甄别。</p></div><h2 id="前言" tabindex="-1"><a class="header-anchor" href="#前言" aria-hidden="true">#</a> 前言</h2><p><strong>Ansible is Simple IT Automation——简单的自动化IT工具，可以实现 批量系统配置、批量程序部署、批量运行命令等功能，简而言之，就是</strong> <span style="color:red;"><strong>分布式集中管理工具</strong></span>， <strong>通俗的讲就是批量在远端服务器上执行命令。其实，ansible自身不具备部署能力的，只是提供框架，其核心为模块</strong></p><!--more--><h2 id="什么是ansible" tabindex="-1"><a class="header-anchor" href="#什么是ansible" aria-hidden="true">#</a> 什么是ansible?</h2><figure><img src="/assets/2511748-ee48dcc8af53cf00-50f30741.jpg" alt="ansible架构" tabindex="0" loading="lazy"><figcaption>ansible架构</figcaption></figure><table><thead><tr><th style="text-align:left;">五大部分</th><th style="text-align:left;">功能</th></tr></thead><tbody><tr><td style="text-align:left;">connection plugins</td><td style="text-align:left;">远程连接插件</td></tr><tr><td style="text-align:left;">hosts</td><td style="text-align:left;">定义管理主机或主机组</td></tr><tr><td style="text-align:left;">modules</td><td style="text-align:left;">包含各个核心模块及自定义模块</td></tr><tr><td style="text-align:left;">Plugin</td><td style="text-align:left;">完成模块功能的补充，如日志插件、邮件插件等</td></tr><tr><td style="text-align:left;">Playbook</td><td style="text-align:left;">ansible的任务配置文件，将多个任务定义在剧本中进行管理</td></tr></tbody></table><h2 id="ansible-的工作流程" tabindex="-1"><a class="header-anchor" href="#ansible-的工作流程" aria-hidden="true">#</a> ansible 的工作流程</h2><p><img src="/assets/2511748-1001b5832ebba246-c13c20c3.jpg" alt="ansible流程" loading="lazy"> ​</p><p>​</p><h2 id="安装ansible" tabindex="-1"><a class="header-anchor" href="#安装ansible" aria-hidden="true">#</a> 安装ansible</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment">#配置源  ansible默认不在yum仓库中</span>
+<span class="token function">rpm</span> <span class="token parameter variable">-iUvh</span> http://ftp.jaist.ac.jp/pub/Linux/Fedora/epel//7/x86_64/e/epel-release-7-9.noarch.rpm
+
+<span class="token comment">#此源主要是为了安装PyYAML</span>
+<span class="token function">wget</span> http://mirrors.163.com/.help/CentOS7-Base-163.repo          
+<span class="token function">mv</span> CentOS7-Base-163.repo /etc/yum.repos.d/
+
+yum <span class="token parameter variable">-y</span> <span class="token function">install</span> ansible
+
+ansible <span class="token parameter variable">--version</span>
+<span class="token comment">#可查看当前ansible版本</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="配置登录" tabindex="-1"><a class="header-anchor" href="#配置登录" aria-hidden="true">#</a> 配置登录</h2><blockquote><p>ansible 使用ssh登录，所以主奴之间要配置密钥进行认证，这样才能开始正常工作</p></blockquote><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token comment">#回车</span>
+<span class="token comment">#将会生成密钥/root/.ssh/id_rsa.pub</span>
+
+ssh-copy-id <span class="token parameter variable">-i</span> root@ipaddress 
+<span class="token comment">#公钥将会被cp到各个ipaddress节点</span>
+
+<span class="token comment">#至此 已经实现了master与各节点的连接</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="定义ansible的节点清单" tabindex="-1"><a class="header-anchor" href="#定义ansible的节点清单" aria-hidden="true">#</a> 定义Ansible的节点清单</h2><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>vim /etc/ansible/hosts
+[testgroup]-----#服务器组的名字，方便统一管理，划分和命名要有规划
+192.168.1.XX----#组内节点的地址
+192.168.1.XXX
+等等
+
+[websever]
+....
+[DBserver]
+....
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="简单的远程操作" tabindex="-1"><a class="header-anchor" href="#简单的远程操作" aria-hidden="true">#</a> 简单的远程操作</h2><p><strong>通过执行who，查看服务器登录信息</strong></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>ansible testgroup <span class="token parameter variable">-m</span> <span class="token builtin class-name">command</span> <span class="token parameter variable">-a</span> <span class="token string">&#39;who&#39;</span> <span class="token comment">#组</span>
+ansible all <span class="token parameter variable">-m</span> <span class="token builtin class-name">command</span> <span class="token parameter variable">-a</span> <span class="token string">&#39;who&#39;</span>   <span class="token comment"># 所有</span>
+ansible <span class="token number">192.168</span>.1.XX <span class="token parameter variable">-m</span> <span class="token builtin class-name">command</span> <span class="token parameter variable">-a</span> <span class="token string">&#39;who&#39;</span>  <span class="token comment">#单个ip</span>
+
+<span class="token comment">##</span>
+<span class="token number">192.168</span>.247.152 <span class="token operator">|</span> SUCCESS <span class="token operator">|</span> <span class="token assign-left variable">rc</span><span class="token operator">=</span><span class="token number">0</span> <span class="token operator">&gt;&gt;</span>
+root     :0           <span class="token number">2017</span>-02-15 <span class="token number">22</span>:33 <span class="token punctuation">(</span>:0<span class="token punctuation">)</span>
+root     pts/0        <span class="token number">2017</span>-02-15 <span class="token number">22</span>:34 <span class="token punctuation">(</span>:0<span class="token punctuation">)</span>
+root     pts/1        <span class="token number">2017</span>-02-18 <span class="token number">13</span>:08 <span class="token punctuation">(</span><span class="token number">192.168</span>.247.1<span class="token punctuation">)</span>
+root     pts/2        <span class="token number">2017</span>-03-07 <span class="token number">22</span>:52 <span class="token punctuation">(</span>:0<span class="token punctuation">)</span>
+root     pts/3        <span class="token number">2017</span>-03-07 <span class="token number">22</span>:54 <span class="token punctuation">(</span><span class="token number">192.168</span>.247.156<span class="token punctuation">)</span>
+
+
+<span class="token comment"># 以ashin用户身份ping .134</span>
+ansible <span class="token number">192.168</span>.1.134 <span class="token parameter variable">-m</span> <span class="token function">ping</span> <span class="token parameter variable">-u</span> zili
+
+<span class="token comment"># 以用户zili身份使用sudo来ping 组testgroup</span>
+<span class="token comment"># -K是输入root密码</span>
+ansible v1 <span class="token parameter variable">-m</span> <span class="token function">ping</span> <span class="token parameter variable">-u</span> zili <span class="token parameter variable">--sudo</span> <span class="token parameter variable">-K</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="定义变量" tabindex="-1"><a class="header-anchor" href="#定义变量" aria-hidden="true">#</a> 定义变量</h2><h3 id="定义主机变量" tabindex="-1"><a class="header-anchor" href="#定义主机变量" aria-hidden="true">#</a> 定义主机变量</h3><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>    [web]
+    192.168.247.152  http_port=80
+    ...............  http_port=303
+    [mysql]
+    192.168.247.152
+    ...
+    
+    #组名以及ip根本自己需求定义
+    #主机指定变量，以便后面供palybooks配置使用。
+    #定义两台web服务器的apache参数http_port，可以让两台服务器产生的apache配置文件httpd.conf差异化
+    
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="定义组变量" tabindex="-1"><a class="header-anchor" href="#定义组变量" aria-hidden="true">#</a> 定义组变量</h3><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code>    <span class="token punctuation">[</span>web<span class="token punctuation">]</span>
+    192.168.247.152
+    <span class="token punctuation">[</span>web<span class="token punctuation">:</span>vars<span class="token punctuation">]</span>
+    http_port=80
+    
+    <span class="token comment">#组变量的作用域是覆盖组所有成员，通过定义一个新块，块名由组名+ &quot;:vars&quot;组成。</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="嵌套组" tabindex="-1"><a class="header-anchor" href="#嵌套组" aria-hidden="true">#</a> 嵌套组</h3><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code>    <span class="token punctuation">[</span>web<span class="token punctuation">]</span>
+    192.168.247.152
+    <span class="token punctuation">[</span>mysql<span class="token punctuation">]</span>
+    192.168.247.152
+    <span class="token punctuation">...</span>
+    <span class="token punctuation">[</span>nested：children<span class="token punctuation">]</span>
+    web
+    mysql
+    <span class="token punctuation">[</span>nested：vars<span class="token punctuation">]</span>
+    ntp_server=s1b.time.edu.cn   
+    
+<span class="token comment">##</span>
+嵌套组定义一个新块，块名由 组名+&quot;<span class="token punctuation">:</span>chilren&quot; 组成。
+同是嵌套组也可以定义组变量，作用域是嵌套组里的所有组<span class="token punctuation">,</span>  
+嵌套组只能在/usr/bin/ansible<span class="token punctuation">-</span>playbook中，
+在/usr/bin/ansible中不起作用，下面会介绍playbook
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="分离主机和组特定数据" tabindex="-1"><a class="header-anchor" href="#分离主机和组特定数据" aria-hidden="true">#</a> 分离主机和组特定数据</h3><blockquote><p>为更好的规范定义的<strong>主机与组变量</strong>，我们实际是不会在hosts里直接写的var，将定义的主机名与组变量单独剥离出来放到指定的文件中，将采用YAML格式存放 全局的变量放在group_vars/all中，局部变量放在group_vars/x中，特定的host使用特定的变量可以使用host_vars/x，子group中的变量会覆盖上级变量，hosts变量总是覆盖groups变量 存放位置规定：&quot;/etc/ansible/group_vars/名&quot;和&quot;/etc/ansible/host_vars/主机名&quot;分别存放指定组名或主机名定义的变量，如 <code>/etc/ansible/group\_vars/mysql.yml</code><code>/etc/ansible/host\_vars/192.168.11.1.yml</code> 使用变量要用jinja语法去引用</p></blockquote><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code>cat mysql.yml
+
+   <span class="token punctuation">---</span>
+    <span class="token key atrule">ntp_server</span><span class="token punctuation">:</span> s1b.time.edu.cn
+    <span class="token key atrule">database_server</span><span class="token punctuation">:</span> 192.168.247.152
+
+<span class="token comment">##</span>
+规范变量名字，是因为，ansible会自动加载这目录下的变量，
+否则无法调用，当然也有解决不放此目录的方法
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>例如</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>[root@master ansible]# tree
+├── create_user.yml
+├── group_vars
+│   └── t1.yml
+├── hosts
+
+[root@master ansible]# cat hosts
+[t1]
+10.1.27.24
+
+所以
+├── group_vars
+│   └── t1.yml  #他的内容就是t1的变量
+
+[root@master ansible]# cat group_vars/t1.yml 
+---
+user: ansibleTest1
+
+[root@master ansible]# cat create_user.yml 
+# create user
+---
+- name: create user
+  hosts: t1
+  user: root
+  tasks:
+  - name: useradd {{ user }}  #引用t1变量
+    user: name=&quot;{{ user }}&quot;
+
+返回结果如下
+[root@master ansible]# ansible-playbook create_user.yml 
+
+PLAY [create user] ***********************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+ok: [10.1.27.24]
+
+TASK [useradd ansibleTest1] **************************************************************************************************
+changed: [10.1.27.24]
+
+PLAY RECAP *******************************************************************************************************************
+10.1.27.24                 : ok=2    changed=1    unreachable=0    failed=0   
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="命令参数" tabindex="-1"><a class="header-anchor" href="#命令参数" aria-hidden="true">#</a> 命令参数</h2><blockquote><p>ansible &lt; host-pattern &gt; [ options ]</p></blockquote><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token parameter variable">-m</span> MODULE_NAME, --module-name<span class="token operator">=</span>MODULE_NAME     要执行的模块，默认为 <span class="token builtin class-name">command</span>  
+<span class="token parameter variable">-a</span> MODULE_ARGS, <span class="token parameter variable">--args</span><span class="token operator">=</span>MODULE_ARGS      模块的参数  
+<span class="token parameter variable">-u</span> REMOTE_USER, <span class="token parameter variable">--user</span><span class="token operator">=</span>REMOTE_USER <span class="token function">ssh</span>      连接的用户名，默认用 root，ansible.cfg 中可以配置
+-k, --ask-pass      提示输入 <span class="token function">ssh</span> 登录密码，当使用密码验证登录的时候用     
+-s, <span class="token parameter variable">--sudo</span>      <span class="token function">sudo</span> 运行
+<span class="token parameter variable">-U</span> SUDO_USER, --sudo-user<span class="token operator">=</span>SUDO_USER     <span class="token function">sudo</span> 到哪个用户，默认为 root
+-K, --ask-sudo-pass     提示输入 <span class="token function">sudo</span> 密码，当不是 NOPASSWD 模式时使用
+<span class="token parameter variable">-B</span> <span class="token environment constant">SECONDS</span>, <span class="token parameter variable">--background</span><span class="token operator">=</span><span class="token environment constant">SECONDS</span>       run asynchronously, failing after X seconds<span class="token punctuation">(</span>default<span class="token operator">=</span>N/A<span class="token punctuation">)</span>
+<span class="token parameter variable">-P</span> POLL_INTERVAL, <span class="token parameter variable">--poll</span><span class="token operator">=</span>POLL_INTERVAL      <span class="token builtin class-name">set</span> the poll interval <span class="token keyword">if</span> using
+<span class="token parameter variable">-B</span> <span class="token punctuation">(</span>default<span class="token operator">=</span><span class="token number">15</span><span class="token punctuation">)</span>
+-C, <span class="token parameter variable">--check</span>     只是测试一下会改变什么内容，不会真正去执行
+<span class="token parameter variable">-c</span> CONNECTION   连接类型<span class="token punctuation">(</span>default<span class="token operator">=</span>smart<span class="token punctuation">)</span>
+<span class="token parameter variable">-f</span> FORKS, <span class="token parameter variable">--forks</span><span class="token operator">=</span>FORKS     fork 多少个进程并发处理，默认 <span class="token number">5</span>
+<span class="token parameter variable">-i</span> INVENTORY, --inventory-file<span class="token operator">=</span>INVENTORY      指定hosts文件路径默认 default <span class="token operator">=</span>/etc/ansible/hosts
+<span class="token parameter variable">-l</span> SUBSET, <span class="token parameter variable">--limit</span><span class="token operator">=</span>SUBSET       指定一个 pattern，对<span class="token operator">&lt;</span>host_pattern<span class="token operator">&gt;</span>已经匹配的主机中再过滤一次
+--list-hosts        只打印有哪些主机会执行这个 playbook 文件：不是实际执行该 playbook
+<span class="token parameter variable">-M</span> MODULE_PATH, --module-path<span class="token operator">=</span>MODULE_PATH       要执行的模块的路径，默认为/usr/share/ansible/
+-o, --one-line      压缩输出，摘要输出
+--private-key<span class="token operator">=</span>PRIVATE_KEY_FILE      私钥路径
+<span class="token parameter variable">-T</span> TIMEOUT, <span class="token parameter variable">--timeout</span><span class="token operator">=</span>TIMEOUT   <span class="token function">ssh</span> 连接超时时间，默认 <span class="token number">10</span> 秒
+<span class="token parameter variable">-t</span> TREE, <span class="token parameter variable">--tree</span><span class="token operator">=</span>TREE            日志输出到该目录，日志文件名会以主机名命名
+-v, <span class="token parameter variable">--verbose</span>   verbose mode <span class="token punctuation">(</span>-vvv <span class="token keyword">for</span> more, <span class="token parameter variable">-vvvv</span> to <span class="token builtin class-name">enable</span> connection debugging<span class="token punctuation">)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="pattern" tabindex="-1"><a class="header-anchor" href="#pattern" aria-hidden="true">#</a> Pattern</h2><p>可以直接指定ip或hosts中的组名，同时指定多个组或者多个<code>ip</code>使用<code>:</code>分割</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>ansible group1:group2 -m ping
+ansible ip1:ip2 -m ping
+
+#all  或者 *  代表全部
+ansible all -m ping
+
+# 感叹号 ! 表示非
+g1:!g2   #表示在g1分组中，但是不在g2中的hosts
+
+# &amp;符号表示交集
+g1:&amp;g2  #表示在g1分组中，也在g2中的hosts
+
+#使用下标
+g1[2]  #组的第三个
+g1[0:3] #组的前四个
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="常用模块" tabindex="-1"><a class="header-anchor" href="#常用模块" aria-hidden="true">#</a> 常用模块</h2><h3 id="copy模块" tabindex="-1"><a class="header-anchor" href="#copy模块" aria-hidden="true">#</a> copy模块</h3><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>目的：把主控端/root目录下的a.sh文件拷贝到到指定节点上  
+命令：ansible 192.168.247.152 -m copy -a &#39;src=/root/a.sh dest=/tmp/ owner=root group=root mode=0755&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="file模块" tabindex="-1"><a class="header-anchor" href="#file模块" aria-hidden="true">#</a> file模块</h3><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>目的：更改指定节点上/tmp/t.sh的权限为755，属主和属组为root  
+命令：ansible all -m file -a &quot;dest=/tmp/t.sh mode=755 owner=root group=root&quot;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="cron模块" tabindex="-1"><a class="header-anchor" href="#cron模块" aria-hidden="true">#</a> cron模块</h3><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>    目的：在指定节点上定义一个计划任务，每隔3分钟到主控端更新一次时间  
+    命令：ansible all -m cron -a &#39;name=&quot;custom job&quot; minute=*/3 hour=* day=* month=* weekday=* job=&quot;/usr/sbin/ntpdate 192.168.247.152&quot;&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="group模块" tabindex="-1"><a class="header-anchor" href="#group模块" aria-hidden="true">#</a> group模块</h3><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>目的：在所有节点上创建一个组名为nolinux，gid为2014的组  
+命令：ansible all -m group -a &#39;gid=2014 name=nolinux&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="uesr模块" tabindex="-1"><a class="header-anchor" href="#uesr模块" aria-hidden="true">#</a> uesr模块</h3><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>目的：在所有节点上创建一个用户名为nolinux，组为nolinux的用户  
+命令：ansible all <span class="token parameter variable">-m</span> user <span class="token parameter variable">-a</span> <span class="token string">&#39;name=nolinux groups=nolinux state=present&#39;</span>
+删除用户  
+命令：ansible all <span class="token parameter variable">-m</span> user <span class="token parameter variable">-a</span> <span class="token string">&#39;name=nolinux state=absent remove=yes&#39;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="yum模块" tabindex="-1"><a class="header-anchor" href="#yum模块" aria-hidden="true">#</a> yum模块</h3><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>目的：在指定节点上安装 apache 服务  
+命令：ansible all -m yum -a &quot;state=present name=httpd&quot;
+#state=latest 安装最新版本
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="shell模块" tabindex="-1"><a class="header-anchor" href="#shell模块" aria-hidden="true">#</a> shell模块</h3><div class="language-SHELL line-numbers-mode" data-ext="SHELL"><pre class="language-SHELL"><code>目的：在指定节点上安装 apache 服务  
+命令：ansible testgroup -m shell -a &#39;yum -y install httpd&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="command模块" tabindex="-1"><a class="header-anchor" href="#command模块" aria-hidden="true">#</a> command模块</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>目的：在指定节点上运行hostname命令
+命令：ansible 192.168.247.152 -m command -a &#39;hostname&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="raw模块" tabindex="-1"><a class="header-anchor" href="#raw模块" aria-hidden="true">#</a> raw模块</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>目的：在192.168.247.152节点上运行ifconfig命令
+命令：ansible 192.168.247.152 -m raw-a &#39;ifconfig|eth0&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="script模块" tabindex="-1"><a class="header-anchor" href="#script模块" aria-hidden="true">#</a> script模块</h3><div class="language-SHELL line-numbers-mode" data-ext="SHELL"><pre class="language-SHELL"><code>目的：在指定节点上执行/root/a.sh脚本(该脚本是在ansible主控端)  
+命令：ansible 10.1.1.113 -m script -a &#39;/root/a.sh&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="command-script-shell-raw的区别" tabindex="-1"><a class="header-anchor" href="#command-script-shell-raw的区别" aria-hidden="true">#</a> command,script,shell,raw的区别</h3><blockquote><p>思考：四者有何区别？</p></blockquote><p>command模块 [执行远程命令]</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>ansible client -m command -a &quot;uname -n&quot; -s
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>script模块 [在远程主机执行主控端的shell/python脚本]</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>ansible client -m script -a &quot;/soft/ntpdate.py&quot; -s
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>shell模块 [执行远程主机的shell/python脚本]</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>ansible client -m shell -a &quot;/soft/file.py&quot; -s
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>raw模块 [类似于command模块、支持管道传递]</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>ansible client -m raw -a &quot;ifconfig eth0|sed -n 2p|awk &#39;{print \$2}&#39;&quot; -s
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h3 id="service模块" tabindex="-1"><a class="header-anchor" href="#service模块" aria-hidden="true">#</a> service模块</h3><div class="language-SHELL line-numbers-mode" data-ext="SHELL"><pre class="language-SHELL"><code>目的：启动指定节点上的 httpd 服务，并让其开机自启动  
+命令：ansible 192.168.247.152 -m service -a &#39;name=httpd state=restarted enabled=yes&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="ping模块" tabindex="-1"><a class="header-anchor" href="#ping模块" aria-hidden="true">#</a> ping模块</h3><div class="language-SHELL line-numbers-mode" data-ext="SHELL"><pre class="language-SHELL"><code>目的：检查指定节点机器是否还能连通  
+命令：ansible 192.168.247.152 -m ping
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="get-url" tabindex="-1"><a class="header-anchor" href="#get-url" aria-hidden="true">#</a> get_url</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>目的：下载百度下的图标文件到节点的/tmp文件下
+命令：ansible testgroup -m get_url -a &#39;url=https://www.baidu.com/favicon dest=/tmp&#39;
+#结果为error.html，但是证明了模块是可用的
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="stat模块" tabindex="-1"><a class="header-anchor" href="#stat模块" aria-hidden="true">#</a> stat模块</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>目的：获取远程文件状态信息，包括atime、ctime、mtime、md5、uid、gid等信息
+ansible web -m stat -a &#39;path=/etc/sysctl.conf&#39;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="template模块" tabindex="-1"><a class="header-anchor" href="#template模块" aria-hidden="true">#</a> template模块</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>template使用了Jinja2格式作为文件模版，进行文档内变量的替换的模块。它的每次使用都会被ansible标记为”changed”状态。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h2 id="模块参数" tabindex="-1"><a class="header-anchor" href="#模块参数" aria-hidden="true">#</a> 模块参数</h2><table><thead><tr><th>参数名</th><th>是否必须</th><th>默认值</th><th>选项</th><th>说明</th></tr></thead><tbody><tr><td>backup</td><td>no</td><td>no</td><td>yes/no</td><td>建立个包括timestamp在内的文件备份，以备不时之需.</td></tr><tr><td>dest</td><td>yes</td><td></td><td></td><td>远程节点上的绝对路径，用于放置template文件。</td></tr><tr><td>group</td><td>no</td><td></td><td></td><td>设置远程节点上的的template文件的所属用户组</td></tr><tr><td>mode</td><td>no</td><td></td><td></td><td>设置远程节点上的template文件权限。类似<a href="http://www.2cto.com/os/linux/" target="_blank" rel="noopener noreferrer">Linux<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a>中<em>chmod</em>的用法</td></tr><tr><td>owner</td><td>no</td><td></td><td></td><td>设置远程节点上的template文件所属用户</td></tr><tr><td>src</td><td>yes</td><td></td><td></td><td>本地Jinjia2模版的template文件位置</td></tr></tbody></table><h2 id="模块参数案例" tabindex="-1"><a class="header-anchor" href="#模块参数案例" aria-hidden="true">#</a> 模块参数案例</h2><p>把/mytemplates/foo.j2文件经过填写参数后，复制到远程节点的/etc/file.conf，文件权限相关略过</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code> - template: src=/mytemplates/foo.j2 dest=/etc/file.conf owner=bin group=wheel mode=0644
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>跟上面一样的效果，不一样的文件权限设置方式</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code> - template: src=/mytemplates/foo.j2 dest=/etc/file.conf owner=bin group=wheel mode=&quot;u=rw,g=r,o=r&quot;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>#详细说明 
+roles/templates/server.xml中的template文件关键部分如下：
+&lt;user username=&quot;{{ admin_username }}&quot; password=&quot;{{ admin_password }}&quot; roles=&quot;manager-gui&quot; /&gt;
+#当这个文件还没被template执行的时候，本地的admin_username及admin_password 都是变量状态。 
+#当playbook执行完template的时候，远程的admin_username*及admin_password 会变成变量所对应的值。
+
+#例 
+#前面的那个Playbook,如果我们在tomcat-servers设置了这两个变量如下：
+dmin_username: admin
+admin_password: adminsecret
+
+#那么在执行这个Playbook前，对应的那个template文件（俗称模版），
+将在本地保持{{ admin_username }}及{{ admin_password }}的状态。
+在Ansible调用template模版执行的时候，这里将由Jinjia2从”tomcat-servers”读取对应的值，
+然后替换掉模版里的变量，然后把这个替换变量值后的文件拷贝到远程节点。
+#这个就是template的意义所在。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="更多模块" tabindex="-1"><a class="header-anchor" href="#更多模块" aria-hidden="true">#</a> 更多模块</h3><p>ansible-doc -l 查询</p><hr><h2 id="playbook的配置和使用" tabindex="-1"><a class="header-anchor" href="#playbook的配置和使用" aria-hidden="true">#</a> playbook的配置和使用</h2><p>配置文件后缀名为.yml</p><h3 id="官网demo说明" tabindex="-1"><a class="header-anchor" href="#官网demo说明" aria-hidden="true">#</a> 官网demo说明</h3><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code><span class="token comment">#这个是你选择的主机</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
+<span class="token comment">#这个是变量</span>
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">http_port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">max_clients</span><span class="token punctuation">:</span> <span class="token number">200</span>
+<span class="token comment">#远端的执行权限</span>
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+<span class="token comment">#利用yum模块来操作</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ensure apache is at the latest version
+    <span class="token key atrule">yum</span><span class="token punctuation">:</span> pkg=httpd state=latest
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> write the apache config file
+    <span class="token key atrule">template</span><span class="token punctuation">:</span> src=/srv/httpd.j2 dest=/etc/httpd.conf
+<span class="token comment">#触发重启服务器</span>
+    <span class="token key atrule">notify</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> restart apache
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ensure apache is running
+    <span class="token key atrule">service</span><span class="token punctuation">:</span> name=httpd state=started
+<span class="token comment">#这里的restart apache 和上面的触发是配对的。这就是handlers的作用。相当于tag</span>
+  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart apache
+      <span class="token key atrule">service</span><span class="token punctuation">:</span> name=httpd state=restarted
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>#有的系统做了sudo限制，所以需要在playbook中开启权限，如下
+- hosts: web
+  remote_user: vic
+  tasks:
+    - service: name=nginx state=started
+      sudo: yes
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="脚本实例" tabindex="-1"><a class="header-anchor" href="#脚本实例" aria-hidden="true">#</a> 脚本实例</h3><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>#create_user.yml
+- name: create user
+  hosts: testgroup
+  user: root
+  ##facts可以调用client的变量来使用，后面变量里会详细介绍
+  gather_facts: false
+  vars:
+  - user: &quot;usertest1&quot;
+  tasks:
+  - name: create {{ user }}
+    user: name=&quot;{{ user }}&quot;
+    
+#返回结果如下
+[root/] ]$ansible-playbook create_user.yml
+
+PLAY [create user] *************************************************************
+
+TASK [create usertest1] ********************************************************
+ok: [192.168.247.152]
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=1    changed=0    unreachable=0    failed=0
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="给脚本添加service的调用" tabindex="-1"><a class="header-anchor" href="#给脚本添加service的调用" aria-hidden="true">#</a> 给脚本添加service的调用</h2><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>#create_user.yml
+- name: create user
+  hosts: testgroup
+  user: root
+  gather_facts: false
+  vars:
+  - user: &quot;usertest1&quot;
+  tasks:
+  - name: create {{ user }}
+    user: name={{ user }}
+  - name: start httpd
+    service: name=httpd state=startd
+  #添加了httpd服务的开启
+  
+  #返回结果如下 
+PLAY [create user] *************************************************************
+
+TASK [create usertest2] ********************************************************
+ok: [192.168.247.152]
+#可以注意到 TASK [service]显示已经开启了
+TASK [service] *****************************************************************
+changed: [192.168.247.152]
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=2    changed=1    unreachable=0    failed=0
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="给脚本添加copy模块的调用" tabindex="-1"><a class="header-anchor" href="#给脚本添加copy模块的调用" aria-hidden="true">#</a> 给脚本添加copy模块的调用</h2><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code><span class="token comment">#create_user.yml</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> create user
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span> testgroup
+  <span class="token key atrule">user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">gather_facts</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">user</span><span class="token punctuation">:</span> <span class="token string">&quot;usertest1&quot;</span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> create <span class="token punctuation">{</span><span class="token punctuation">{</span> user <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token key atrule">user</span><span class="token punctuation">:</span> name=<span class="token punctuation">{</span><span class="token punctuation">{</span> user <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> start httpd
+    <span class="token key atrule">service</span><span class="token punctuation">:</span> name=httpd state=startd
+   <span class="token comment">#添加了httpd服务的开启</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Copy file to client
+    <span class="token key atrule">copy</span><span class="token punctuation">:</span> src=/tmp/test.test dest=/tmp/
+    <span class="token comment">#添加了copy服务的开启</span>
+    
+ <span class="token comment">#返回结果如下</span>
+<span class="token punctuation">[</span>root/ansible_yml<span class="token punctuation">]</span> <span class="token punctuation">]</span>$ansible<span class="token punctuation">-</span>playbook create_user.yml
+
+PLAY <span class="token punctuation">[</span>create user<span class="token punctuation">]</span> <span class="token important">************************************************************</span>
+
+TASK <span class="token punctuation">[</span>create usertest2<span class="token punctuation">]</span> <span class="token important">*******************************************************</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>192.168.247.152<span class="token punctuation">]</span>
+
+TASK <span class="token punctuation">[</span>service<span class="token punctuation">]</span> <span class="token important">****************************************************************</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>192.168.247.152<span class="token punctuation">]</span>
+<span class="token comment">#可以注意到 TASK [copy file to clent]已成功</span>
+TASK <span class="token punctuation">[</span>copy file to clent<span class="token punctuation">]</span> <span class="token important">*****************************************************</span>
+<span class="token key atrule">changed</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>192.168.247.152<span class="token punctuation">]</span>
+
+PLAY RECAP <span class="token important">********************************************************************</span>
+<span class="token key atrule">192.168.247.152</span>            <span class="token punctuation">:</span> ok=3    changed=1    unreachable=0    failed=0
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>copy传送的时候，可能报错</strong></p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>afewbug | FAILED &gt;&gt; {
+    &quot;checksum&quot;: &quot;4ee72f7427050dcd97068734d35ca7b2c651bc88&quot;, 
+    &quot;failed&quot;: true, 
+    &quot;msg&quot;: &quot;Aborting, target uses selinux but python bindings (libselinux-python) aren‘t installed!&quot;
+    
+是因为ansible需要libselinux-python包。（被控端需要安装libselinux-python**）  
+可以在copy前先调用yum模块，安装libselinux-python
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="template模板-支持jinja2" tabindex="-1"><a class="header-anchor" href="#template模板-支持jinja2" aria-hidden="true">#</a> template模板（支持jinja2）</h2><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>#create_user.yml
+- name: create user
+  hosts: testgroup
+  user: root
+  gather_facts: false
+  vars:
+  - user: &quot;usertest1&quot;
+  - temp: temptest
+  tasks:
+  - name: create {{ user }}
+    user: name={{ user }}
+  - name: start httpd
+    service: name=httpd state=startd
+   #添加了httpd服务的开启
+  - name: Copy file to client
+    copy: src=/tmp/test.test dest=/tmp/
+    #添加了copy服务的开启
+  - name: template test
+    template: src=/tmp/temp dest=/tmp/{{temp}} #{{temp}}变量来自vars
+    #添加了template模板使用
+    
+#返回结果
+[root/ansible_yml] ]$ansible-playbook create_user.yml
+
+PLAY [create user] *************************************************************
+
+TASK [create usertest2] ********************************************************
+ok: [192.168.247.152]
+
+TASK [start httpd] *************************************************************
+ok: [192.168.247.152]
+
+TASK [copy file to clent] ******************************************************
+ok: [192.168.247.152]
+#可以注意到 返回结果显示成功，去client相关目录即可看到文件
+TASK [template test] ***********************************************************
+changed: [192.168.247.152]
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=4    changed=1    unreachable=0    failed=0
+
+
+##
+#template模块可以引用变量到源文件
+/tmp/temp
+{{user}}
+{{temp}}
+
+#执行yml后
+
+[root/ansible_yml] ]$ansible testgroup -m command -a &#39;cat /tmp/temptest&#39;
+192.168.247.152 | SUCCESS | rc=0 &gt;&gt;
+##client返回的就是主机源文件中引入的变量
+usertest1
+temptest
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="执行外部命令的模块" tabindex="-1"><a class="header-anchor" href="#执行外部命令的模块" aria-hidden="true">#</a> 执行外部命令的模块</h2><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>#create_user.yml
+- name: create user
+  hosts: testgroup
+  user: root
+  gather_facts: false
+  vars:
+  - user: &quot;usertest1&quot;
+  - temp: temptest
+  tasks:
+  - name: create {{ user }}
+    user: name={{ user }}
+  - name: start httpd
+    service: name=httpd state=startd
+   #添加了httpd服务的开启
+  - name: Copy file to client
+    copy: src=/tmp/test.test dest=/tmp/
+    #添加了copy服务的开启
+  - name: template test
+    template: src=/tmp/temp dest=/tmp/{{temp}} #{{temp}}变量来自vars
+    #添加了template模板使用
+  - name: run shell
+    shell: /usr/bin/ls /tmp/ || /bin/true
+    #/bin/true 防中断
+  - name: run  command
+    command: mkdir /tmp/command-test
+  #添加了两个执行外部命令模块shell和command
+
+#返回结果如下
+[root/ansible_yml] ]$ansible-playbook create_user.yml
+
+PLAY [create user] *************************************************************
+
+TASK [create usertest2] ********************************************************
+ok: [192.168.247.152]
+
+TASK [start httpd] *************************************************************
+ok: [192.168.247.152]
+
+TASK [copy file to client] *****************************************************
+changed: [192.168.247.152]
+
+TASK [template test] ***********************************************************
+changed: [192.168.247.152]
+
+TASK [shell~] ******************************************************************
+changed: [192.168.247.152]
+
+TASK [run this command] ********************************************************
+changed: [192.168.247.152]
+ [WARNING]: Consider using file module with state=directory rather than running
+mkdir
+
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=6    changed=4    unreachable=0    failed=0
+
+
+#
+#1./usr/bin/...||/bin/true  前面失败的话/bin/true：返回true。防止中断，继续执行。类似的判断还有chenge_when参数
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="变量功能" tabindex="-1"><a class="header-anchor" href="#变量功能" aria-hidden="true">#</a> 变量功能</h2><h3 id="facts" tabindex="-1"><a class="header-anchor" href="#facts" aria-hidden="true">#</a> facts</h3><blockquote><p>一个常用的组件，可实现对远程自己系统信息的获取，比如：主机名，IP地址，操作系统，分区情况，硬件信息等，配合playbook使用，更加的灵活和个性化定制</p></blockquote><p><code>ansible ip/group -m setup</code>可以获取clients的facts信息</p><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>[root~] ]$ansible testgroup -m setup
+192.168.247.152 | SUCCESS =&gt; {
+    &quot;ansible_facts&quot;: {
+        &quot;ansible_all_ipv4_addresses&quot;: [
+            &quot;192.168.122.1&quot;,
+            &quot;192.168.247.152&quot;
+        ],
+        &quot;ansible_all_ipv6_addresses&quot;: [
+            &quot;fe80::20c:29ff:feb5:6e6&quot;
+        ],
+        &quot;ansible_architecture&quot;: &quot;x86_64&quot;,
+        &quot;ansible_bios_date&quot;: &quot;07/02/2015&quot;,
+        &quot;ansible_bios_version&quot;: &quot;6.00&quot;,
+        
+        ......
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>脚本中开启Facts功能</strong></p><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>#create_user.yml
+- name: create user
+  hosts: testgroup
+  user: root
+  gather_facts: false #开启facts
+  tasks:
+  - name: template test
+    template: src=/tmp/temp dest=/tmp/{{temp}} #{{temp}}变量来自vars
+
+#返回结果，
+[root/ansible_yml] ]$ansible-playbook create_user.yml
+
+PLAY [create user] *************************************************************
+
+TASK [setup] *******************************************************************
+ok: [192.168.247.152]
+
+TASK [template test] ***********************************************************
+changed: [192.168.247.152]
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=2    changed=1    unreachable=0    failed=0
+
+#查看
+[root/ansible_yml] ]$ansible testgroup -m raw -a &quot;ls /tmp | grep 192*&quot;
+192.168.247.152 | SUCCESS | rc=0 &gt;&gt;
+[u&#39;192.168.122.1&#39;, u&#39;192.168.247.152&#39;]
+Shared connection to 192.168.247.152 closed.
+#IP地址有两个所以文件名很奇怪
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>当然，我们也可以在主机的/tmp/temp下调用facts变量</strong></p><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code><span class="token comment">#修改/tmp/temp文件</span>
+test
+<span class="token punctuation">{</span><span class="token punctuation">{</span>ansible_all_ipv4_addresses<span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+<span class="token comment">#create_user.yml</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> create user
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span> testgroup
+  <span class="token key atrule">user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">gather_facts</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment">#开启facts</span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> template test
+    <span class="token key atrule">template</span><span class="token punctuation">:</span> src=/tmp/temp dest=/tmp/factstest
+
+<span class="token comment">#结果如下</span>
+<span class="token punctuation">[</span>root/ansible_yml<span class="token punctuation">]</span> <span class="token punctuation">]</span>$ansible<span class="token punctuation">-</span>playbook create_user.yml
+
+PLAY <span class="token punctuation">[</span>create user<span class="token punctuation">]</span> <span class="token important">*************************************************************</span>
+
+TASK <span class="token punctuation">[</span>setup<span class="token punctuation">]</span> <span class="token important">*******************************************************************</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>192.168.247.152<span class="token punctuation">]</span>
+
+TASK <span class="token punctuation">[</span>template test<span class="token punctuation">]</span> <span class="token important">***********************************************************</span>
+<span class="token key atrule">changed</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>192.168.247.152<span class="token punctuation">]</span>
+
+PLAY RECAP <span class="token important">*********************************************************************</span>
+<span class="token key atrule">192.168.247.152</span>            <span class="token punctuation">:</span> ok=2    changed=1    unreachable=0    failed=0
+
+<span class="token punctuation">[</span>root/ansible_yml<span class="token punctuation">]</span> <span class="token punctuation">]</span>$ansible testgroup <span class="token punctuation">-</span>m raw <span class="token punctuation">-</span>a &quot;cat /tmp/factstest&quot;
+192.168.247.152 <span class="token punctuation">|</span> SUCCESS <span class="token punctuation">|</span> rc=0 <span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span>
+test
+<span class="token punctuation">[</span>u&#39;192.168.122.1&#39;<span class="token punctuation">,</span> u&#39;192.168.247.152&#39;<span class="token punctuation">]</span>
+Shared connection to 192.168.247.152 closed.
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="自定义变量" tabindex="-1"><a class="header-anchor" href="#自定义变量" aria-hidden="true">#</a> 自定义变量</h3><blockquote><p>如何facts的变量并不能满足需求的，就可以自定义facts模板来实现</p><p>另外可以通过本地facts来实现，只需在client的/etc/ansible/facts.d目录定义JSON,INI或可执行的JSON输出，后缀名一定要用.fact，那么这些文件就可以作为本地的facts</p></blockquote><p>##在client定义变量，供ansible主机使用</p><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>[root@test1 ~]# mkdir /etc/ansible/facts.d -p
+[root@test1 ~]# cd /etc/ansible/facts.d/
+[root@test1 facts.d]# cat client.fact
+[general]
+name=zili
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>ansible主机</strong></p><div class="language-JSON line-numbers-mode" data-ext="JSON"><pre class="language-JSON"><code>[root/ansible_yml] ]$ansible 192.168.247.152 -m setup -a &quot;filter=ansible_local&quot; 192.168.247.152 | SUCCESS =&gt; {
+    &quot;ansible_facts&quot;: {
+        &quot;ansible_local&quot;: {      #本地facts
+            &quot;client&quot;: {       #文件名
+                &quot;general&quot;: {       #节点名
+                    &quot;name&quot;: &quot;zili&quot;    #key-value
+                }
+            }
+        }
+    },
+    &quot;changed&quot;: false
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>那么就可以通过如下方式去调用自定义的facts变量</strong></p><p><code>{{ansible_local.client.general.name}}</code></p><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>[root/ansible_yml] ]$ansible-playbook create_user.yml
+
+PLAY [create user] *************************************************************
+
+TASK [setup] *******************************************************************
+ok: [192.168.247.152]
+
+TASK [template test] ***********************************************************
+changed: [192.168.247.152]
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=2    changed=1    unreachable=0    failed=0
+#调用成功，并可看到client内容已变化
+[root/ansible_yml] ]$ansible testgroup -m raw -a &quot;cat /tmp/factstest2&quot;          192.168.247.152 | SUCCESS | rc=0 &gt;&gt;
+zili #
+Shared connection to 192.168.247.152 closed.
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="在操作主机定义变量-来控制client" tabindex="-1"><a class="header-anchor" href="#在操作主机定义变量-来控制client" aria-hidden="true">#</a> 在操作主机定义变量，来控制client</h2><p>思路就是在执行playbook的时候将本地的facts推送到client相关目录下</p><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>      - name: create directory for ansible custom facts
+        file: state=directory recurse=yes path=/etc/ansible/facts.d
+      - name: install custom facts
+        copy: src=/etc/ansible/host.fact dest=/etc/ansible/facts.d
+      - name: re-read facts after adding custom fact
+        setup: filter=ansible_local
+  #如此相当于批量在client创建了facts变量
+  #然后就可以主机调用了!
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="注册变量" tabindex="-1"><a class="header-anchor" href="#注册变量" aria-hidden="true">#</a> 注册变量</h3><blockquote><p>变量可以将一条命令的返回值进行保存，然后提供给playbook使用</p></blockquote><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code><span class="token punctuation">[</span>root@ansible ansible<span class="token punctuation">]</span><span class="token comment"># cat user1.yml</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> testgroup
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> /usr/bin/foo
+    <span class="token key atrule">register</span><span class="token punctuation">:</span> z     <span class="token comment">#注册了一个foo\_resul变量，变量值为shell: /usr/bin/foo的运行结果;  </span>
+    <span class="token key atrule">ignore_errors</span><span class="token punctuation">:</span> <span class="token boolean important">True</span>  <span class="token comment">#ignore\_errors: True为忽略错误</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> touch /tmp/LLL <span class="token comment">#当变量注册完成后，就可以在后面的playbook中使用了</span>
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> z.rc == 5 
+<span class="token comment">#当条件语句when: z.rc == 5成立时，shell: touch /tmp/LLL命令才会执行  </span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-BASH line-numbers-mode" data-ext="BASH"><pre class="language-BASH"><code>#可以注意到command是skipping的。因为返回值是127，所以client肯定还是没有创建LLL的
+[root/ansible_yml] ]$ansible-playbook user1.yml
+
+PLAY [testgroup] ***************************************************************
+
+TASK [setup] *******************************************************************
+ok: [192.168.247.152]
+
+TASK [command] *****************************************************************
+fatal: [192.168.247.152]: FAILED! =&gt; {&quot;changed&quot;: true, &quot;cmd&quot;: &quot;/usr/bin/foo&quot;, &quot;delta&quot;: &quot;0:00:00.003488&quot;, &quot;end&quot;: &quot;2017-03-11 13:08:45.996549&quot;, &quot;failed&quot;: true, &quot;rc&quot;: 127, &quot;start&quot;: &quot;2017-03-11 13:08:45.993061&quot;, &quot;stderr&quot;: &quot;/bin/sh: /usr/bin/foo: No such file or directory&quot;, &quot;stdout&quot;: &quot;&quot;, &quot;stdout_lines&quot;: [], &quot;warnings&quot;: []}
+...ignoring
+
+TASK [command] *****************************************************************
+skipping: [192.168.247.152]
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=2    changed=1    unreachable=0    failed=0
+
+##所以我门修改z.rc的返回值为127在执行
+#以为返回值是对的，所以执行了touch，warning是友情提示，最好用线管模块进行文件的操作
+[root/ansible_yml] ]$ansible-playbook user1.yml
+
+PLAY [testgroup] ***************************************************************
+
+TASK [setup] *******************************************************************
+ok: [192.168.247.152]
+
+TASK [command] *****************************************************************
+fatal: [192.168.247.152]: FAILED! =&gt; {&quot;changed&quot;: true, &quot;cmd&quot;: &quot;/usr/bin/foo&quot;, &quot;delta&quot;: &quot;0:00:00.003539&quot;, &quot;end&quot;: &quot;2017-03-11 13:11:01.955975&quot;, &quot;failed&quot;: true, &quot;rc&quot;: 127, &quot;start&quot;: &quot;2017-03-11 13:11:01.952436&quot;, &quot;stderr&quot;: &quot;/bin/sh: /usr/bin/foo: No such file or directory&quot;, &quot;stdout&quot;: &quot;&quot;, &quot;stdout_lines&quot;: [], &quot;warnings&quot;: []}
+...ignoring
+
+TASK [command] *****************************************************************
+changed: [192.168.247.152]
+ [WARNING]: Consider using file module with state=touch rather than running touch
+
+
+PLAY RECAP *********************************************************************
+192.168.247.152            : ok=3    changed=2    unreachable=0    failed=0
+
+[root/ansible_yml] ]$
+
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="语句" tabindex="-1"><a class="header-anchor" href="#语句" aria-hidden="true">#</a> 语句</h2><h3 id="条件语句" tabindex="-1"><a class="header-anchor" href="#条件语句" aria-hidden="true">#</a> 条件语句</h3><blockquote><p>playbook的执行结果取决于变量，不管是facts还是tasks结果赋值的，而变量的值可以依赖于其他变量，当然一会印象ansible的执行</p><p>有时候我们，想要跳过某些主机的执行步骤，比如，某些client不安装某个软件包，不清理垃圾等等</p><p>就要使用判断了</p></blockquote><h2 id="when" tabindex="-1"><a class="header-anchor" href="#when" aria-hidden="true">#</a> when</h2><div class="language-yaml line-numbers-mode" data-ext="yml"><pre class="language-yaml"><code><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> when
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span> testgroup
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">gather_facts</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> shutdown centos
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> /sbin/shutdown <span class="token punctuation">-</span>t now
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> ansible_hostname == &#39;test1&#39;
+<span class="token comment">#when返回bool值，为true是执行，false则不执行</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>when 针对不同分支的二级处理</strong></p><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>- name: when
+  hosts: web
+  remote_user: root
+  gather_facts: true
+  tasks:
+  - command: /sbin/ip a
+    register: result
+    ignore_errors: True
+  - command: /bin/something
+    when: result|failed
+  - command: /bin/something_else
+    when: result|success
+  - command: /bin/still/something_else
+    when: result|skipped
+    
+# when: result|success&quot;的意思为当变量result执行结果为成功
+#将执行/bin/something_else命令，其他同理。
+#其中success为Ansible内部过滤器方法，返回True代表命令运行成功。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="循环语句" tabindex="-1"><a class="header-anchor" href="#循环语句" aria-hidden="true">#</a> 循环语句</h3><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>- name: whell
+  hosts: testgroup
+  remote_user: root
+  gather_facts: true
+  tasks:
+  - name: &quot;add user&quot;
+    user: name={{ item }} state=present groups=wheel
+    with_items:
+    - tiger1
+    - tiger2
+    
+#创建用户的。with_items会自动循环执行上面的语句&quot;user: name={{ item }} state=present groups=wheel&quot;，循环的次数为with_items的元素个数。这里有2个元素，分别为tiger1、tiger2，会分别替换{{ item }}项
+#等同于
+- name: whell
+  hosts: testgroup
+  remote_user: root
+  gather_facts: true
+  tasks:
+  - name: &quot;add user tiger1&quot;
+    user: name=tiger1 state=present groups=wheel
+  - name: &quot;add user tiger2&quot;
+    user: name=tiger2 state=present groups=wheel
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="循环元素支持列表" tabindex="-1"><a class="header-anchor" href="#循环元素支持列表" aria-hidden="true">#</a> 循环元素支持列表</h2><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>#首先定义好列表 list.yml
+packages_base:
+  - [ &#39;vsftpd&#39;, &#39;vim&#39; ]
+packages_apps:
+  - [[ &#39;mysql&#39;,httpd&#39; ]]
+
+#然后引入使用
+- name: whell
+  hosts: testgroup
+  remote_user: root
+  gather_facts: true
+  var_files: 
+  - /etc/ansible/list.yml
+  tasks:
+  - name: &quot;install rpm&quot;
+    yum: name={{ item }} state=installed
+    with_flattened: #此语句 用来循环定义好的列表
+    - packages_base
+    - packages_apps
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="handlers-和-include" tabindex="-1"><a class="header-anchor" href="#handlers-和-include" aria-hidden="true">#</a> handlers 和 include</h3><blockquote><p>当多个playbook涉及复用的任务列表时，可以将复用的内容剥离出来，写到独立的文件里，需要的地方include进来即可</p><p>除了tasks之外，还有一个handlers的命令，handlers是在执行tasks之后服务器发生变化之后可供调用的handler</p></blockquote><div class="language-YAML line-numbers-mode" data-ext="YAML"><pre class="language-YAML"><code>- name: write the httpd config file
+  hosts: testgroup
+  remote_user: root
+  gather_facts: true
+  tasks:
+  - name: write the httpd.conf to client
+    template: src=/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+    notify:    # 如果copy执行完之后/etc/httpd/conf/httpd.conf文件发送了变化，则执行
+    - restart httpd  # 调用handler
+    - include: playbook/tasks/httpd.yml
+    
+    handlers:
+    - name: restart httpd #此处的标识必须和notify一样才可以引起触发
+      service: name=httpd state=restarted
+      
+ #注意上面使用的- include: playbook/tasks/httpd.yml，看一下这个文件的内容
+- name: ensure httpd is running
+  service: name=httpd state=started
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><blockquote><p>notify这个action可用于在每个play的最后被触发，这样可以避免多次有改变发生时每次都执行指定的操作，取而代之，仅在所有的变化发生完成后一次性地执行指定操作。</p><p>Handlers 是由通知者进行 notify, 如果没有被 notify,handlers 不会执行。</p><p>Handlers 最佳的应用场景是用来重启服务,或者触发系统重启操作.除此以外很少用到了。</p></blockquote><h2 id="roles-使用" tabindex="-1"><a class="header-anchor" href="#roles-使用" aria-hidden="true">#</a> roles 使用</h2><p>前面的所有都在一个文件内.还有一种方法可以进行更好的组织架构 使用roles</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>[root@master roles]# tree
+.
+├── test
+│   └── tasks
+│       └── main.yml
+└── test.yml
+test.yml为入口文件,每次执行它即可.他的内容如下
+
+[root@master roles]# cat test.yml 
+---
+- hosts: all
+  roles:
+    - role: test
+定义了主机/主机组,然后定义了要使用的roles,(也就是roles下的文件夹的名字)
+
+test文件夹下定义了tasks,内有 **main.yml**  这个命名是规定好的.必须是main
+
+
+main.yml 书写了tasks的任务.
+[root@master roles]# cat test/tasks/main.yml 
+---
+- name: test role ping
+  ping:
+
+[root@master roles]# 
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>结果如下:</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>[root@master roles]# ansible-playbook test.yml 
+
+PLAY [all] ************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************
+ok: [10.1.27.28]
+ok: [10.1.27.24]
+
+TASK [test : test role ping] ******************************************************************
+ok: [10.1.27.28]
+ok: [10.1.27.24]
+
+PLAY RECAP ************************************************************************************
+10.1.27.24                 : ok=2    changed=0    unreachable=0    failed=0   
+10.1.27.28                 : ok=2    changed=0    unreachable=0    failed=0   
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>roles有很多结构,ansible可以根据其进行解析.</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>├── defaults
+├── files
+├── handlers
+├── meta
+├── tasks
+├── templates
+└── vars
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如果<code>roles/x/tasks/main.yml</code>存在,则自动将里面的tasks添加到play中。</p><p>如果<code>roles/x/handlers/main.yml</code>存在,则自动将里面的handlers添加到play中。</p><p>如果<code>roles/x/vars/main.yml</code>存在, 则自动将其中的variables添加到play中。</p><p>如果<code>roles/x/meta/main.yml</code>存在,则添加role的依赖关系roles中。</p><p>任何<code>copy</code>任务、<code>script</code>任务都可以引用<code>roles/x/files</code>中的文件，无论是使用绝对或相对路径都可以。</p><p>任何<code>template</code>任务都可以引用<code>roles/x/templates</code>中的文件，无论绝对或相对路径。</p><p>任何<code>include</code>任务都可以引用<code>roles/x/tasks/</code>中的文件，无论相对或绝对路径</p><p>具体可以参见文档：<a href="http://docs.ansible.com/playbooks_intro.html" target="_blank" rel="noopener noreferrer">http://docs.ansible.com/playbooks_intro.html<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p><h2 id="ansible和saltstack的对比" tabindex="-1"><a class="header-anchor" href="#ansible和saltstack的对比" aria-hidden="true">#</a> ansible和saltstack的对比</h2><blockquote><p>1、salt要安装agent , ansible通过ssh连接。</p><p>2、salt在server端要启进程；ansible不需要。</p><p>3、salt与ansible都有模块，可使用任意语言开发模块。</p><p>4、salt与ansible都使用yaml语言格式编写剧本。</p><p>ansible走的是ssh,所以它有认证以及加密码的过程，使得ansible非常慢，不适用于大规模环境（指上千台）</p></blockquote><hr></div><!----><footer class="page-meta"><!----><div class="meta-item git-info"><!----><!----></div></footer><nav class="page-nav"><!----><a href="/ops/linux/Centos9.html" class="nav-link next" aria-label="Centos 9 init"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">Centos 9 init<!----></div></a></nav><div class="giscus-wrapper input-top" id="comment" style="display:block;"><div class="loading-icon-wrapper" style="display:flex;align-items:center;justify-content:center;height:96px"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" preserveAspectRatio="xMidYMid" viewBox="25 25 50 50"><animateTransform attributeName="transform" type="rotate" dur="2s" keyTimes="0;1" repeatCount="indefinite" values="0;360"></animateTransform><circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><animate attributeName="stroke-dasharray" dur="1.5s" keyTimes="0;0.5;1" repeatCount="indefinite" values="1,200;90,200;1,200"></animate><animate attributeName="stroke-dashoffset" dur="1.5s" keyTimes="0;0.5;1" repeatCount="indefinite" values="0;-35px;-125px"></animate></circle></svg></div></div><!----><!--]--></main><!--]--><!----></div><!--]--><!----><!----><!--]--></div>
+    <script type="module" src="/assets/app-645cb3a2.js" defer></script>
+  </body>
+</html>

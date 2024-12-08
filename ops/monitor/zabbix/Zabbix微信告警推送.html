@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-beta.61" />
+    <meta name="theme" content="VuePress Theme Hope" />
+    <meta property="og:url" content="https://docs.lizili.online/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html"><meta property="og:title" content="告警推送(ZBX-微信)"><meta property="og:description" content="请注意 本文内容可能已过时，部分接口，参数等，存在变更的可能，请自行甄别。 文本告警 前言 zabbx告警结合微信,可以更及时对故障进行响应和处理。 另：文末有进阶版实现效果 告警的模式分为两种,第一种就是本文消息的直接推送,第二种是图文推送,可做到交互,本文主要介绍第一种"><meta property="og:type" content="website"><meta property="og:image" content="https://docs.lizili.online/"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-04-23T05:06:11.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image:alt" content="告警推送(ZBX-微信)"><meta property="article:author" content="z"><meta property="article:tag" content="zabbix"><meta property="article:tag" content="消息通知"><meta property="article:modified_time" content="2024-04-23T05:06:11.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"告警推送(ZBX-微信)","description":"请注意 本文内容可能已过时，部分接口，参数等，存在变更的可能，请自行甄别。 文本告警 前言 zabbx告警结合微信,可以更及时对故障进行响应和处理。 另：文末有进阶版实现效果 告警的模式分为两种,第一种就是本文消息的直接推送,第二种是图文推送,可做到交互,本文主要介绍第一种"}</script><script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?088df8f788eb6cfa86e86b04cee94211";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+        </script><title>告警推送(ZBX-微信)</title><meta name="description" content="请注意 本文内容可能已过时，部分接口，参数等，存在变更的可能，请自行甄别。 文本告警 前言 zabbx告警结合微信,可以更及时对故障进行响应和处理。 另：文末有进阶版实现效果 告警的模式分为两种,第一种就是本文消息的直接推送,第二种是图文推送,可做到交互,本文主要介绍第一种">
+    <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d1e1f;
+      }
+
+      html,
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <link rel="preload" href="/assets/style-cf6f3347.css" as="style"><link rel="stylesheet" href="/assets/style-cf6f3347.css">
+    <link rel="modulepreload" href="/assets/app-645cb3a2.js"><link rel="modulepreload" href="/assets/framework-abbf9d44.js"><link rel="modulepreload" href="/assets/Zabbix微信告警推送.html-9373933f.js"><link rel="modulepreload" href="/assets/Zabbix微信告警推送.html-dee200a3.js">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="skip-link sr-only">跳至主要內容</a><!--]--><div class="theme-container has-toc"><!--[--><header class="navbar" id="navbar"><div class="navbar-start"><button class="toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><a href="/" class="brand"><img class="logo" src="/logo.png" alt><!----><!----></a><!--[--><!----><!--]--></div><div class="navbar-center"><!--[--><!----><!--]--><nav class="nav-links"><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="Linux"><span class="title"><span class="font-icon icon iconfont icon-linux" style=""></span>Linux</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/ops/linux" class="nav-link" aria-label="运维"><!---->运维<!----></a></li><li class="dropdown-item"><a href="/ops/GitOps" class="nav-link" aria-label="GitOps"><!---->GitOps<!----></a></li><li class="dropdown-item"><a href="/ops/monitor" class="nav-link active" aria-label="Monitor"><!---->Monitor<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="☁️云原生"><span class="title"><!---->☁️云原生</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/cloud-native/kubernetes" class="nav-link" aria-label="Kubernetes"><!---->Kubernetes<!----></a></li><li class="dropdown-item"><a href="/cloud-native/backup" class="nav-link" aria-label="备份"><!---->备份<!----></a></li><li class="dropdown-item"><a href="/cloud-native/middleware" class="nav-link" aria-label="中间件"><!---->中间件<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="🧑🏼‍💻运开"><span class="title"><!---->🧑🏼‍💻运开</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/coder/code" class="nav-link" aria-label="代码"><!---->代码<!----></a></li><li class="dropdown-item"><a href="/coder/ops" class="nav-link" aria-label="运维"><!---->运维<!----></a></li><li class="dropdown-item"><a href="/coder/script" class="nav-link" aria-label="脚本"><!---->脚本<!----></a></li><li class="dropdown-item"><a href="/coder/team" class="nav-link" aria-label="团队"><!---->团队<!----></a></li><li class="dropdown-item"><a href="/coder/faq" class="nav-link" aria-label="FAQ"><span class="font-icon icon iconfont icon-faq" style=""></span>FAQ<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/tools/" class="nav-link" aria-label="🛠️工具推荐"><!---->🛠️工具推荐<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="手册"><span class="title"><span class="font-icon icon iconfont icon-guide" style=""></span>手册</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/guide/shell.html" class="nav-link" aria-label="Shell"><!---->Shell<!----></a></li><li class="dropdown-item"><a href="/guide/markdown" class="nav-link" aria-label="Markdown"><!---->Markdown<!----></a></li><li class="dropdown-item"><a href="/guide/vuepress" class="nav-link" aria-label="VuePress"><!---->VuePress<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/read/" class="nav-link" aria-label="阅读"><span class="font-icon icon iconfont icon-read" style=""></span>阅读<!----></a></div><div class="nav-item hide-in-mobile"><a href="/links.html" class="nav-link" aria-label="友链"><span class="font-icon icon iconfont icon-link" style=""></span>友链<!----></a></div><div class="nav-item hide-in-mobile"><a href="https://www.travellings.cn/go.html" rel="noopener noreferrer" target="_blank" aria-label="🚇开往" class="nav-link"><!---->🚇开往<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div></nav><!--[--><!----><!--]--></div><div class="navbar-end"><!--[--><!----><!--]--><!--[--><button type="button" class="search-pro-button" role="search" aria-label="搜索"><svg xmlns="http://www.w3.org/2000/svg" class="icon search-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="search icon"><path d="M192 480a256 256 0 1 1 512 0 256 256 0 0 1-512 0m631.776 362.496-143.2-143.168A318.464 318.464 0 0 0 768 480c0-176.736-143.264-320-320-320S128 303.264 128 480s143.264 320 320 320a318.016 318.016 0 0 0 184.16-58.592l146.336 146.368c12.512 12.48 32.768 12.48 45.28 0 12.48-12.512 12.48-32.768 0-45.28"></path></svg><div class="placeholder">搜索</div><div class="key-hints"><kbd class="key">Ctrl</kbd><kbd class="key">K</kbd></div></button><!--]--><div class="nav-item hide-in-mobile"><button class="outlook-button" tabindex="-1" ariahidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg><div class="outlook-dropdown"><!----></div></button></div><!--[--><!----><!--]--><button class="toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span class="button-container"><span class="button-top"></span><span class="button-middle"></span><span class="button-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside class="sidebar" id="sidebar"><!--[--><!----><!--]--><ul class="sidebar-links"><li><section class="sidebar-group"><button class="sidebar-heading clickable"><!----><span class="title">Prometheus</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable active"><!----><span class="title">Zabbix</span><span class="arrow down"></span></button><ul class="sidebar-links"><li><!--[--><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html" class="router-link-active router-link-exact-active nav-link active sidebar-link sidebar-page active" aria-label="告警推送(ZBX-微信)"><!---->告警推送(ZBX-微信)<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#前提条件" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="前提条件"><!---->前提条件<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#企业号" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="企业号"><!---->企业号<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#获取信息" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="获取信息"><!---->获取信息<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#脚本" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="脚本"><!---->脚本<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#推送文本" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="推送文本"><!---->推送文本<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#推送news" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="推送news"><!---->推送news<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#zabbix" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="zabbix"><!---->zabbix<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#媒介配置" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="媒介配置"><!---->媒介配置<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#用户" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="用户"><!---->用户<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#动作" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="动作"><!---->动作<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#参考配置" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="参考配置"><!---->参考配置<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#图文-参考" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="图文(参考)"><!---->图文(参考)<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#工程项目" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="工程项目"><!---->工程项目<!----></a><ul class="sidebar-sub-headers"></ul></li></ul><!--]--></li><li><!--[--><a href="/ops/monitor/zabbix/Zabbix-mysql.html" class="nav-link sidebar-link sidebar-page" aria-label="Zabbix-mysql监控"><!---->Zabbix-mysql监控<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/monitor/zabbix/Zabbix%E8%A7%A6%E5%8F%91%E5%99%A8.html" class="nav-link sidebar-link sidebar-page" aria-label="Zabbix触发器"><!---->Zabbix触发器<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/ops/monitor/zabbix/Zabbix%E8%87%AA%E5%AE%9A%E4%B9%89key.html" class="nav-link sidebar-link sidebar-page" aria-label="Zabbix自定义key"><!---->Zabbix自定义key<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li></ul></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main class="page" id="main-content"><!--[--><!----><nav class="breadcrumb disable"></nav><div class="page-title"><h1><!---->告警推送(ZBX-微信)</h1><div class="page-info"><span class="page-category-info" aria-label="分类🌈" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon category-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="category icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zM147.556 553.478H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zM593.927 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zM730.22 920.502H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z"></path></svg><span class="page-category-item category8" role>监控</span><meta property="articleSection" content="监控"></span><span class="page-tag-info" aria-label="标签🏷" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon tag-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="tag icon"><path d="M939.902 458.563L910.17 144.567c-1.507-16.272-14.465-29.13-30.737-30.737L565.438 84.098h-.402c-3.215 0-5.726 1.005-7.634 2.913l-470.39 470.39a10.004 10.004 0 000 14.164l365.423 365.424c1.909 1.908 4.42 2.913 7.132 2.913s5.223-1.005 7.132-2.913l470.39-470.39c2.01-2.11 3.014-5.023 2.813-8.036zm-240.067-72.121c-35.458 0-64.286-28.828-64.286-64.286s28.828-64.285 64.286-64.285 64.286 28.828 64.286 64.285-28.829 64.286-64.286 64.286z"></path></svg><span class="page-tag-item tag6" role>zabbix</span><span class="page-tag-item tag1" role>消息通知</span><meta property="keywords" content="zabbix,消息通知"></span><span class="page-word-info" aria-label="字数🔠" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 1608 字</span><meta property="wordCount" content="1608"></span><span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 5 分钟</span><meta property="timeRequired" content="PT5M"></span><!----></div><hr></div><div class="toc-place-holder"><aside id="toc"><!--[--><!----><!--]--><div class="toc-header">此页内容<!----></div><div class="toc-wrapper"><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#前提条件" class="router-link-active router-link-exact-active toc-link level2">前提条件</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#企业号" class="router-link-active router-link-exact-active toc-link level2">企业号</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#获取信息" class="router-link-active router-link-exact-active toc-link level3">获取信息</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#脚本" class="router-link-active router-link-exact-active toc-link level2">脚本</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#推送文本" class="router-link-active router-link-exact-active toc-link level3">推送文本</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#推送news" class="router-link-active router-link-exact-active toc-link level3">推送news</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#zabbix" class="router-link-active router-link-exact-active toc-link level2">zabbix</a></li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#媒介配置" class="router-link-active router-link-exact-active toc-link level3">媒介配置</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#用户" class="router-link-active router-link-exact-active toc-link level3">用户</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#动作" class="router-link-active router-link-exact-active toc-link level3">动作</a></li><!----><!--]--></ul><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#参考配置" class="router-link-active router-link-exact-active toc-link level2">参考配置</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#图文-参考" class="router-link-active router-link-exact-active toc-link level2">图文(参考)</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/ops/monitor/zabbix/Zabbix%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6%E6%8E%A8%E9%80%81.html#工程项目" class="router-link-active router-link-exact-active toc-link level2">工程项目</a></li><!----><!--]--></ul></div><!--[--><!----><!--]--></aside></div><!----><div class="theme-hope-content"><div class="hint-container danger"><p class="hint-container-title">请注意</p><p>本文内容可能已过时，部分接口，参数等，存在变更的可能，请自行甄别。</p></div><figure><img src="/assets/zabbix-text-066728f2.jpg" alt="文本告警" tabindex="0" loading="lazy"><figcaption>文本告警</figcaption></figure><p><strong>前言</strong></p><p>zabbx告警结合微信,可以更及时对故障进行响应和处理。</p><p>另：文末有进阶版实现效果</p><!--more--><hr><p><strong>告警的模式分为两种,第一种就是本文消息的直接推送,第二种是图文推送,可做到交互,本文主要介绍第一种</strong></p><h2 id="前提条件" tabindex="-1"><a class="header-anchor" href="#前提条件" aria-hidden="true">#</a> 前提条件</h2><blockquote><ol><li>zabbix</li><li>企业号</li><li>脚本</li></ol></blockquote><h2 id="企业号" tabindex="-1"><a class="header-anchor" href="#企业号" aria-hidden="true">#</a> 企业号</h2><p>申请，略</p><h3 id="获取信息" tabindex="-1"><a class="header-anchor" href="#获取信息" aria-hidden="true">#</a> 获取信息</h3><p>取得企业号的部门ID,应用ID, CorpID,Secret</p><figure><img src="/assets/zabbix-2-2faa0b49.png" alt="企业号信息" tabindex="0" loading="lazy"><figcaption>企业号信息</figcaption></figure><h2 id="脚本" tabindex="-1"><a class="header-anchor" href="#脚本" aria-hidden="true">#</a> 脚本</h2><p>脚本可以推送两种格式,文本和新闻.</p><h3 id="推送文本" tabindex="-1"><a class="header-anchor" href="#推送文本" aria-hidden="true">#</a> 推送文本</h3><p><strong>来自网上, 视情况修改4处 <code>self.__corpid</code> 和<code>self.__secret</code> <code>toparty</code> <code>agentid</code></strong></p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>#!/usr/bin/env python
+# coding: utf-8
+
+import urllib,urllib2,json
+import sys
+reload(sys)
+sys.setdefaultencoding( &quot;utf-8&quot; )
+
+class WeChat(object):
+    __token_id = &#39;&#39;
+    # init attribute
+    def __init__(self,url):
+        self.__url = url.rstrip(&#39;/&#39;)
+        #CorpID
+        self.__corpid = &#39;wx643f**********&#39;   
+        #Secret 
+        self.__secret = &#39;YQOu7Qzad********hGJ9xHlby****_v1oF2WpBOlsy****TivMKAL***voA3MwKH&#39;
+
+    # Get TokenID
+    def authID(self):
+        params = {&#39;corpid&#39;:self.__corpid, &#39;corpsecret&#39;:self.__secret}
+        data = urllib.urlencode(params)
+
+        content = self.getToken(data)
+
+        try:
+            self.__token_id = content[&#39;access_token&#39;]
+            # print content[&#39;access_token&#39;]
+        except KeyError:
+            raise KeyError
+
+    # Establish a connection
+    def getToken(self,data,url_prefix=&#39;/&#39;):
+        url = self.__url + url_prefix + &#39;gettoken?&#39;
+        try:
+            response = urllib2.Request(url + data)
+        except KeyError:
+            raise KeyError
+        result = urllib2.urlopen(response)
+        content = json.loads(result.read())
+        return content
+
+    # Get sendmessage url
+    def postData(self,data,url_prefix=&#39;/&#39;):
+        url = self.__url + url_prefix + &#39;message/send?access_token=%s&#39; % self.__token_id
+        request = urllib2.Request(url,data)
+        try:
+            result = urllib2.urlopen(request)
+        except urllib2.HTTPError as e:
+            if hasattr(e,&#39;reason&#39;):
+                print &#39;reason&#39;,e.reason
+            elif hasattr(e,&#39;code&#39;):
+                print &#39;code&#39;,e.code
+            return 0
+        else:
+            content = json.loads(result.read())
+            result.close()
+        return content
+
+    # send message
+    def sendMessage(self,touser,message):
+
+        self.authID()
+
+# 具体可查看wechat接口文档http://qydev.weixin.qq.com/
+        data = json.dumps({
+            #&#39;touser&#39;:touser, #企业号中的用户帐号,如果没,则按部门推送.
+            &#39;toparty&#39;:&quot;3&quot;,  #部门ID 
+            &#39;msgtype&#39;:&quot;text&quot;,
+            &#39;agentid&#39;:&quot;1&quot;, #应用ID
+            &#39;text&#39;:{
+                &#39;content&#39;:message
+            },
+            &#39;safe&#39;:&quot;0&quot;
+        },ensure_ascii=False)
+        response = self.postData(data)
+        print response
+if __name__ == &#39;__main__&#39;:
+    a = WeChat(&#39;https://qyapi.weixin.qq.com/cgi-bin&#39;)
+    a.sendMessage(sys.argv[1], sys.argv[3])
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="推送news" tabindex="-1"><a class="header-anchor" href="#推送news" aria-hidden="true">#</a> 推送news</h3><p><strong>同样的脚本,需要修改如下</strong></p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>##图文格式(推荐),修改脚本的data如下
+        data = json.dumps({
+            &#39;touser&#39;:touser, #企业号中的用户帐号
+            &#39;toparty&#39;:&quot;3&quot;,  #部门ID 
+            &#39;msgtype&#39;:&quot;news&quot;,
+            &#39;agentid&#39;:&quot;1&quot;, #应用ID
+            &#39;news&#39;:{
+                &quot;articles&quot;:[{
+                    &quot;title&quot;:title,
+                    &quot;description&quot;:message
+                        }]
+                },   
+            &quot;safe&quot;:0
+        },ensure_ascii=False)
+##end
+##修改
+1：import re
+
+2：
+def sendMessage(self,touser,message): 修改为
+def sendMessage(self,touser,title,message):
+
+3：
+if __name__ == &#39;__main__&#39;:
+    a = WeChat(&#39;https://qyapi.weixin.qq.com/cgi-bin&#39;)
+    a.sendMessage(sys.argv[1], sys.argv[3])
+修改为
+if __name__ == &#39;__main__&#39;:
+    a = WeChat(&#39;https://qyapi.weixin.qq.com/cgi-bin&#39;)
+    info = sys.argv[3]
+    info2 = re.split(&#39;[&amp;&amp;]&#39;,info)
+    a.sendMessage(sys.argv[1],info2[0],info2[2])
+
+4：
+zabbix页面的动作-默认信息中添加&amp;&amp; 用来进行信息分割
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>脚本放至zbx脚本目录下即可</p><h2 id="zabbix" tabindex="-1"><a class="header-anchor" href="#zabbix" aria-hidden="true">#</a> zabbix</h2><h3 id="媒介配置" tabindex="-1"><a class="header-anchor" href="#媒介配置" aria-hidden="true">#</a> 媒介配置</h3><blockquote><p>管理 ---&gt; 媒介---&gt; 新建 名称随便,这里命名wechat 脚本名称要和上面的一致wechat.py 脚本参数要依次填写以下三个 这三个参数就是传给脚本的sys.argv[]</p></blockquote><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>{ALERT.SENDTO}
+{ALERT.SUBJECT}
+{ALERT.MESSAGE}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><figure><img src="/assets/zabbix-3-3e28e54c.jpg" alt="zabbix媒介" tabindex="0" loading="lazy"><figcaption>zabbix媒介</figcaption></figure><h3 id="用户" tabindex="-1"><a class="header-anchor" href="#用户" aria-hidden="true">#</a> 用户</h3><blockquote><p>创建一个wechat用户,给予相关用户媒介权限(刚刚创建的媒介) 注意收件人,这个是脚本的第一个参数.也就是说这里要填写的是应该是微信用户，或者部门ID，这里填写部门ID 这样wechat.py脚本才能取得正确的值</p></blockquote><figure><img src="/assets/zabbix-4-455ccb0e.jpg" alt="zabbix用户" tabindex="0" loading="lazy"><figcaption>zabbix用户</figcaption></figure><h3 id="动作" tabindex="-1"><a class="header-anchor" href="#动作" aria-hidden="true">#</a> 动作</h3><blockquote><p>动作的 操作选项--&gt;选发送消息,添加相应的用户 或者群组就行了. 我是发送给wechat用户的,因为他关联了wechat.py媒介.所以所有的消息将传递给他,他的媒介连接脚本,脚本连接企业微信,整个流程就打通了.</p></blockquote><h2 id="参考配置" tabindex="-1"><a class="header-anchor" href="#参考配置" aria-hidden="true">#</a> 参考配置</h2><p>告警:</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>{TRIGGER.SEVERITY} : {TRIGGER.NAME}&amp;&amp;
+-------------------------------------------
+ID：{EVENT.ID}
+主机名称:{HOST.NAME}
+主机地址:{HOST.IP}
+告警时间:{EVENT.DATE}  -  {EVENT.TIME}
+
+告警描述:{TRIGGER.DESCRIPTION}
+---------------------------------
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>恢复:</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>恢复 :  {TRIGGER.NAME}&amp;&amp;
+-------------------------------------------
+ID：{EVENT.ID}
+主机名称:{HOST.NAME}
+主机地址:{HOST.IP}
+告警时间:{EVENT.DATE}  -  {EVENT.TIME}
+恢复时间:{EVENT.RECOVERY.DATE}  -  {EVENT.RECOVERY.TIME}
+持续时间:{EVENT.AGE}
+
+告警等级: {TRIGGER.SEVERITY}
+告警描述:{TRIGGER.DESCRIPTION}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><figure><img src="/assets/zabbix-5-103393fa.jpg" alt="zabbix动作" tabindex="0" loading="lazy"><figcaption>zabbix动作</figcaption></figure><h2 id="图文-参考" tabindex="-1"><a class="header-anchor" href="#图文-参考" aria-hidden="true">#</a> 图文(参考)</h2><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>#!/usr/bin/env python3
+# coding: utf-8
+import sys
+import requests
+from time import sleep
+import json
+import time
+
+WX_CORPID = r&quot;wx643f8***********&quot;
+WX_CORPSECRET = r&quot;qwojyG*******************&quot;
+WX_TOKEN_FILE = &quot;/tmp/accesstoken&quot;
+AGENT_ID = &#39;100000*&#39;
+TOPARTY=&#39;*&#39;
+LOG_FILE=&quot;/tmp/zabbix_send_log&quot;
+def c_log(msg):
+    try:
+        perameter_file=open(LOG_FILE,&#39;a&#39;)
+        perameter_file.write(msg+&quot;\n&quot;)
+    except:
+        exit(1)
+    finally:
+        perameter_file.close()
+def refresh_token(corpid=WX_CORPID, corpsecrt=WX_CORPSECRET):
+    get_url = r&quot;https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=&quot; + WX_CORPID + &quot;&amp;corpsecret=&quot; + WX_CORPSECRET
+    for i in range(3):
+        try:
+            req_ret = requests.get(get_url, timeout=6)
+            jso_ret = req_ret.json()
+            file_tok = open(WX_TOKEN_FILE, &quot;w&quot;)
+            file_tok.write(jso_ret[&quot;access_token&quot;])
+            file_tok.close()
+            return jso_ret[&quot;access_token&quot;]
+        except requests.exceptions.ConnectTimeout:
+            sleep(10)
+        except Exception as exc:
+            print(exc.args)
+            return None
+    return None
+
+def get_token(corpid=WX_CORPID, corpsecrt=WX_CORPSECRET):
+    try:
+        file_tok = open(WX_TOKEN_FILE, &quot;r&quot;)
+        token = file_tok.read()
+        file_tok.close()
+        if len(token) !=64:
+            raise FileNotFoundError(r&quot;token length !=64&quot;)
+        return token
+    except FileNotFoundError:
+        get_url = r&quot;https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=&quot; + WX_CORPID + &quot;&amp;corpsecret=&quot; + WX_CORPSECRET
+        for i in range(3):
+            try:
+              req_ret = requests.get(get_url, timeout=6)
+              jso_ret = req_ret.json()
+              file_tok = open(WX_TOKEN_FILE, &quot;w&quot;)
+              file_tok.write(jso_ret[&quot;access_token&quot;])
+              file_tok.close()
+              return jso_ret[&quot;access_token&quot;]
+            except requests.exceptions.ConnectTimeout:
+                sleep(10)
+            except Exception as exc:
+                print(exc.args)
+                return None
+    except Exception as exc:
+            print(exc.args)
+    return None
+
+def create_articles():
+    msg_argv=sys.argv[3].split(&quot;&amp;&amp;&quot;)
+    if(msg_argv[0]==&quot;PROBLEM&quot;):
+        if(msg_argv[1]==&quot;灾难&quot;):
+            pic_url=&quot;图片地址&quot;
+        elif(msg_argv[1]==&quot;一般严重&quot;):
+            pic_url=&quot;图片地址&quot;
+        elif(msg_argv[1]==&quot;严重&quot;):
+            pic_url=&quot;图片地址&quot;
+        elif(msg_argv[1]==&quot;警告&quot;):
+            pic_url=&quot;图片地址&quot;
+        elif(msg_argv[1]==&quot;通知&quot;):
+            pic_url=&quot;图片地址&quot;
+        else:
+            pic_url=&quot;图片地址&quot;
+        ret = [
+            {
+                &quot;title&quot;: &quot;%s&quot;%(msg_argv[2]),
+                &quot;description&quot;:&quot;ID:%s\n告警时间: %s&quot;%(msg_argv[3],msg_argv[7]),
+            },
+            {
+                &quot;title&quot;:&quot;主机分类: %s \n主机名称: %s \n主机地址: %s&quot;%(msg_argv[4],msg_argv[5],msg_argv[6]),
+                &quot;picurl&quot;: &quot;%s&quot;%pic_url
+            },
+            {
+                &quot;title&quot;:&quot;告警描述:\n%s&quot;%(msg_argv[8]),
+            }
+        ]
+        return ret
+    elif(msg_argv[0]==&quot;OK&quot;):
+        if(msg_argv[1]==&quot;通知&quot;):
+            return None
+        else:
+            pic_url=&quot;图片地址&quot;
+            return [
+                {
+                &quot;title&quot;: &quot;恢复-%s&quot;%(msg_argv[2]),
+                &quot;description&quot;:&quot;ID: %s\n持续时长：%s\n恢复时间: %s\n告警时间: %s&quot;%(msg_argv[3],msg_argv[10],msg_argv[7],msg_argv[9]),
+                },
+                {
+                &quot;title&quot;:&quot;主机分类: %s\n主机名称: %s\n主机地址: %s&quot;%(msg_argv[4],msg_argv[5],msg_argv[6]),
+                &quot;picurl&quot;: &quot;%s&quot;%pic_url
+                },
+                {
+                &quot;title&quot;:&quot;告警等级: %s\n告警描述: %s&quot;%(msg_argv[1],msg_argv[8])
+                }
+            ]
+    return None
+
+#def send_news(type,target,arti):
+def send_news(arti):
+    access_token = get_token()
+    if access_token == None:
+        return 1
+    send_msg_url = r&quot;https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=&quot;+access_token
+    msg_josn ={}
+    msg_josn[&quot;toparty&quot;] = TOPARTY
+    msg_josn[&quot;msgtype&quot;] = &quot;news&quot;
+    msg_josn[&quot;agentid&quot;] = AGENT_ID
+
+    msg_josn[&quot;news&quot;] = {&quot;articles&quot;: arti}
+    #print (msg_josn)
+    send_data = json.dumps(msg_josn, ensure_ascii=False).encode(encoding=&#39;UTF8&#39;,)   
+    #print(send_data)
+    for i in range(4):
+        try:
+            if i &gt;= 4:
+                return 1
+            req_ret = requests.post(send_msg_url, data=send_data, timeout=5)
+            c_log(req_ret.text)
+            jos_ret = req_ret.json()
+
+            if jos_ret[&quot;errcode&quot;] == 0:
+                return 0
+            elif jos_ret[&quot;errcode&quot;] == 40014:
+                token = refresh_token(WX_CORPID, WX_CORPSECRET)
+                if token == None:
+                    return 1
+                access_token = token
+                send_msg_url = r&quot;https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=&quot; + access_token
+            else:
+                return 1
+        except requests.exceptions.ConnectTimeout:
+            sleep(2)
+        except Exception as exc:
+            return 1
+    return 1
+
+if __name__==&quot;__main__&quot;:
+    articles=create_articles()
+    #if(articles==None):
+     #   exit(1)
+    #send_news(0,sys.argv[1],articles)
+#    send_news(articles)
+    if(send_news(articles)!=0):
+        exit(1)
+
+#告警
+{TRIGGER.STATUS}&amp;&amp;{TRIGGER.SEVERITY}&amp;&amp;{HOST.NAME}-{TRIGGER.NAME}&amp;&amp;{EVENT.ID}&amp;&amp;{TRIGGER.HOSTGROUP.NAME}&amp;&amp;{HOST.NAME}&amp;&amp;{HOST.IP}&amp;&amp;{EVENT.DATE}-{EVENT.TIME}&amp;&amp;{TRIGGER.DESCRIPTION}
+
+#恢复
+{TRIGGER.STATUS}&amp;&amp;{TRIGGER.SEVERITY}&amp;&amp;{HOST.NAME}-{TRIGGER.NAME}&amp;&amp;{EVENT.ID}&amp;&amp;{TRIGGER.HOSTGROUP.NAME}&amp;&amp;{HOST.NAME}&amp;&amp;{HOST.IP}&amp;&amp;{EVENT.DATE}  -  {EVENT.TIME}&amp;&amp;{TRIGGER.DESCRIPTION}&amp;&amp;{EVENT.RECOVERY.DATE}  -  {EVENT.RECOVERY.TIME}&amp;&amp;{EVENT.AGE}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>可推送出类似如下格式的告警</p><figure><img src="/assets/zabbix-6-90d66dc5.jpg" alt="告警推动01" width="300" height="600" tabindex="0" loading="lazy"><figcaption>告警推动01</figcaption></figure><h2 id="工程项目" tabindex="-1"><a class="header-anchor" href="#工程项目" aria-hidden="true">#</a> 工程项目</h2><p>工程项目可实现了，告警的筛选，处理的交互，消息的聚合，通知的升级等，详情见<a href="https://github.com/llllllizili/zbx-wechat" target="_blank" rel="noopener noreferrer">代码仓库<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p><blockquote><p>对web开发有一定了解,熟悉python,zabbix API,微信API,用Django做后台处理交互.可推出如下告警.</p></blockquote><figure><img src="/assets/zabbix-7-06c0afc5.jpg" alt="告警推动02" width="300" height="600" tabindex="0" loading="lazy"><figcaption>告警推动02</figcaption></figure></div><!----><footer class="page-meta"><!----><div class="meta-item git-info"><!----><!----></div></footer><nav class="page-nav"><!----><a href="/ops/monitor/zabbix/Zabbix-mysql.html" class="nav-link next" aria-label="Zabbix-mysql监控"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">Zabbix-mysql监控<!----></div></a></nav><div class="giscus-wrapper input-top" id="comment" style="display:block;"><div class="loading-icon-wrapper" style="display:flex;align-items:center;justify-content:center;height:96px"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" preserveAspectRatio="xMidYMid" viewBox="25 25 50 50"><animateTransform attributeName="transform" type="rotate" dur="2s" keyTimes="0;1" repeatCount="indefinite" values="0;360"></animateTransform><circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><animate attributeName="stroke-dasharray" dur="1.5s" keyTimes="0;0.5;1" repeatCount="indefinite" values="1,200;90,200;1,200"></animate><animate attributeName="stroke-dashoffset" dur="1.5s" keyTimes="0;0.5;1" repeatCount="indefinite" values="0;-35px;-125px"></animate></circle></svg></div></div><!----><!--]--></main><!--]--><!----></div><!--]--><!----><!----><!--]--></div>
+    <script type="module" src="/assets/app-645cb3a2.js" defer></script>
+  </body>
+</html>
