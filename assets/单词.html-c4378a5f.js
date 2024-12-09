@@ -1,0 +1,1 @@
+import{_ as e,X as t,Y as _,$ as c}from"./framework-abbf9d44.js";const o={},s=c("p",null,"材料 多久之后处理 时间 问工作人缘 多久处理 不处理的后果。 12345",-1),n=[s];function r(a,l){return t(),_("div",null,n)}const f=e(o,[["render",r],["__file","单词.html.vue"]]);export{f as default};

@@ -1,0 +1,1 @@
+import{_ as t,X as o,Y as n,Z as s,$ as e}from"./framework-abbf9d44.js";const _={},c=e("p",null,"⬅️",-1),l=e("p",null,"⬅️",-1),a=e("p",null,"⬅️",-1),r=e("p",null,"团队",-1);function d(i,u){return o(),n("div",null,[c,l,a,r,s(" <AutoCatalog /> ")])}const p=t(_,[["render",d],["__file","index.html.vue"]]);export{p as default};
