@@ -1,0 +1,411 @@
+{
+  "version": "1.0",
+  "lastProcessed": "2025-12-08T15:06:39.046Z",
+  "files": {
+    "1E8A0942.jpg": {
+      "mtime": "2025-12-04T04:09:49.287Z",
+      "size": 2477326,
+      "hash": "25d1bff70b15de761dc1d3c6e4fb6910",
+      "processedAt": "2025-12-04T13:49:26.205Z",
+      "width": 3796,
+      "height": 5934,
+      "id": "1E8A0942"
+    },
+    "1E8A0972.jpg": {
+      "mtime": "2025-12-04T04:09:49.295Z",
+      "size": 1691703,
+      "hash": "edd5ba2558138eb0ebadb35044ac938d",
+      "processedAt": "2025-12-04T13:49:26.453Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "1E8A0972"
+    },
+    "IMG_1643.jpg": {
+      "mtime": "2025-12-04T04:09:49.314Z",
+      "size": 21052372,
+      "hash": "2563386885ca190322f27442d074f1dc",
+      "processedAt": "2025-12-04T13:49:27.046Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_1643"
+    },
+    "IMG_1681.jpg": {
+      "mtime": "2025-12-04T04:09:49.328Z",
+      "size": 3335862,
+      "hash": "e115574585be6d21a3bad64755f79192",
+      "processedAt": "2025-12-04T13:49:27.166Z",
+      "width": 2967,
+      "height": 2132,
+      "id": "IMG_1681"
+    },
+    "IMG_1861.jpg": {
+      "mtime": "2025-12-04T04:09:49.347Z",
+      "size": 21288007,
+      "hash": "788dd4fb3c124c610deedfa193884a14",
+      "processedAt": "2025-12-04T13:49:27.720Z",
+      "width": 4098,
+      "height": 6187,
+      "id": "IMG_1861"
+    },
+    "IMG_1912.jpg": {
+      "mtime": "2025-12-04T04:09:49.382Z",
+      "size": 10087552,
+      "hash": "076072b2833278565f069d5a9d5f5367",
+      "processedAt": "2025-12-04T13:49:27.992Z",
+      "width": 3651,
+      "height": 3651,
+      "id": "IMG_1912"
+    },
+    "IMG_20251029_155305.jpg": {
+      "mtime": "2025-12-03T15:13:05.216Z",
+      "size": 2214195,
+      "hash": "1f4a771ed7e4c206b001b0004f2f0c25",
+      "processedAt": "2025-12-04T13:49:28.105Z",
+      "width": 3072,
+      "height": 3348,
+      "id": "IMG_20251029_155305"
+    },
+    "IMG_2059.jpg": {
+      "mtime": "2025-12-04T04:09:49.412Z",
+      "size": 15193011,
+      "hash": "dbaec145c6005fc725004e8eb56b2c52",
+      "processedAt": "2025-12-04T13:49:28.637Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_2059"
+    },
+    "IMG_2072.jpg": {
+      "mtime": "2025-12-04T04:09:49.446Z",
+      "size": 21113177,
+      "hash": "799879e2e523251c068ad6a435820cc3",
+      "processedAt": "2025-12-04T13:49:29.234Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_2072"
+    },
+    "IMG_2237.jpg": {
+      "mtime": "2025-12-04T04:09:49.472Z",
+      "size": 24033393,
+      "hash": "4d07e7b7c7fcbe72b2f21fca3f4be827",
+      "processedAt": "2025-12-04T13:49:29.858Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_2237"
+    },
+    "IMG_2304.jpg": {
+      "mtime": "2025-12-04T04:09:49.490Z",
+      "size": 11794423,
+      "hash": "643e68ecf7eff88c4d678501256e689d",
+      "processedAt": "2025-12-04T13:49:30.262Z",
+      "width": 6960,
+      "height": 3915,
+      "id": "IMG_2304"
+    },
+    "IMG_2704.jpg": {
+      "mtime": "2025-12-04T04:09:49.511Z",
+      "size": 16173178,
+      "hash": "dbc8c75a1c695c7eee0af8b4da309418",
+      "processedAt": "2025-12-04T13:49:30.755Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_2704"
+    },
+    "IMG_2778.jpg": {
+      "mtime": "2025-12-04T04:09:49.536Z",
+      "size": 20628636,
+      "hash": "5959522ff0bf993aeee919898c0501e4",
+      "processedAt": "2025-12-04T13:49:31.346Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_2778"
+    },
+    "IMG_2902.jpg": {
+      "mtime": "2025-12-04T04:09:49.561Z",
+      "size": 19504109,
+      "hash": "a56c1595ce74395e3a13bab543c14a0b",
+      "processedAt": "2025-12-04T13:49:31.930Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_2902"
+    },
+    "IMG_2966.jpg": {
+      "mtime": "2025-12-04T04:09:49.589Z",
+      "size": 29803821,
+      "hash": "606ec92ae4e2b4b4859663f5ddbcf84e",
+      "processedAt": "2025-12-04T13:49:32.700Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_2966"
+    },
+    "IMG_3035.jpg": {
+      "mtime": "2025-12-04T04:09:49.618Z",
+      "size": 21293409,
+      "hash": "b22c184df2db6ddbafdeac77d46e2c25",
+      "processedAt": "2025-12-04T13:49:33.426Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_3035"
+    },
+    "IMG_3075.jpg": {
+      "mtime": "2025-12-04T04:09:49.640Z",
+      "size": 17822655,
+      "hash": "c708e6fff6cd0239510563154e7948e9",
+      "processedAt": "2025-12-04T13:49:33.987Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_3075"
+    },
+    "IMG_3083.jpg": {
+      "mtime": "2025-12-04T04:09:49.667Z",
+      "size": 29240337,
+      "hash": "d13e0798b571d343eec771519ac584f9",
+      "processedAt": "2025-12-04T13:49:34.727Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_3083"
+    },
+    "IMG_3115.jpg": {
+      "mtime": "2025-12-04T04:09:49.703Z",
+      "size": 28837422,
+      "hash": "9bbe15369ad2c37e4f146847d3ec007b",
+      "processedAt": "2025-12-04T13:49:35.439Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_3115"
+    },
+    "IMG_3176.jpg": {
+      "mtime": "2025-12-04T04:09:49.726Z",
+      "size": 14926287,
+      "hash": "f535b9fcc2df0df7df338d8f79af09e0",
+      "processedAt": "2025-12-04T13:49:35.895Z",
+      "width": 4640,
+      "height": 5800,
+      "id": "IMG_3176"
+    },
+    "IMG_3277.jpg": {
+      "mtime": "2025-12-04T04:09:49.741Z",
+      "size": 18471372,
+      "hash": "7c29f4bf3ca807851ce7a31d81bbdba2",
+      "processedAt": "2025-12-04T13:49:36.470Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_3277"
+    },
+    "IMG_3346.jpg": {
+      "mtime": "2025-12-04T04:09:49.756Z",
+      "size": 12962510,
+      "hash": "a3d69d8ab051d771628895c3509aa47c",
+      "processedAt": "2025-12-04T13:49:36.930Z",
+      "width": 3680,
+      "height": 4907,
+      "id": "IMG_3346"
+    },
+    "IMG_3354.jpg": {
+      "mtime": "2025-12-04T04:09:49.774Z",
+      "size": 13018026,
+      "hash": "90deea69ea0995a10fc9ef4e0146f359",
+      "processedAt": "2025-12-04T13:49:37.308Z",
+      "width": 5785,
+      "height": 3857,
+      "id": "IMG_3354"
+    },
+    "IMG_3357.jpg": {
+      "mtime": "2025-12-04T04:09:49.790Z",
+      "size": 14030224,
+      "hash": "d2db3a0981a4da4fe996a120981d849b",
+      "processedAt": "2025-12-04T13:49:37.730Z",
+      "width": 4042,
+      "height": 6063,
+      "id": "IMG_3357"
+    },
+    "IMG_3389.jpg": {
+      "mtime": "2025-12-04T04:09:49.806Z",
+      "size": 11311284,
+      "hash": "f96ec0391ec3c89438ad4d704f328c37",
+      "processedAt": "2025-12-04T13:49:38.144Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_3389"
+    },
+    "IMG_3488.jpg": {
+      "mtime": "2025-12-04T04:09:49.823Z",
+      "size": 15942795,
+      "hash": "6c54fdaf2fd0ef0441f29cd358965664",
+      "processedAt": "2025-12-04T13:49:38.682Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_3488"
+    },
+    "IMG_3747.jpg": {
+      "mtime": "2025-12-04T04:09:49.849Z",
+      "size": 22194666,
+      "hash": "b2358ee0eb18b451b95703e19a9a110e",
+      "processedAt": "2025-12-04T13:49:39.327Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_3747"
+    },
+    "IMG_3754.jpg": {
+      "mtime": "2025-12-04T04:09:49.864Z",
+      "size": 8057340,
+      "hash": "c3e2dfec0e3da7cbc3b59fd55c1db9e6",
+      "processedAt": "2025-12-04T13:49:39.570Z",
+      "width": 2601,
+      "height": 3902,
+      "id": "IMG_3754"
+    },
+    "IMG_3760.jpg": {
+      "mtime": "2025-12-04T04:09:49.881Z",
+      "size": 10117944,
+      "hash": "a9deef970417b3c8415d51d1fa2536ea",
+      "processedAt": "2025-12-04T13:49:39.974Z",
+      "width": 5361,
+      "height": 3574,
+      "id": "IMG_3760"
+    },
+    "IMG_3765.jpg": {
+      "mtime": "2025-12-04T04:09:49.900Z",
+      "size": 16146952,
+      "hash": "79802f41a7c1f92e5ea7d2a1eaf33644",
+      "processedAt": "2025-12-04T13:49:40.477Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_3765"
+    },
+    "IMG_3771.jpg": {
+      "mtime": "2025-12-04T04:09:49.924Z",
+      "size": 17047950,
+      "hash": "fdd3dd1c08e9ea5c0518ab934c06bf44",
+      "processedAt": "2025-12-04T13:49:41.014Z",
+      "width": 4638,
+      "height": 6957,
+      "id": "IMG_3771"
+    },
+    "IMG_3774.jpg": {
+      "mtime": "2025-12-04T04:09:49.946Z",
+      "size": 15281784,
+      "hash": "0abbffae9b9e5e0f5d8db05c2734c7b0",
+      "processedAt": "2025-12-04T13:49:41.454Z",
+      "width": 5771,
+      "height": 3847,
+      "id": "IMG_3774"
+    },
+    "IMG_3775.jpg": {
+      "mtime": "2025-12-04T04:09:49.970Z",
+      "size": 17623445,
+      "hash": "470645a0ddb2630c0c33c5199df05f98",
+      "processedAt": "2025-12-04T13:49:41.951Z",
+      "width": 6471,
+      "height": 4314,
+      "id": "IMG_3775"
+    },
+    "IMG_3778.jpg": {
+      "mtime": "2025-12-04T04:09:50.005Z",
+      "size": 17435266,
+      "hash": "bfb87f1d8f939562b38637ced2e6ee6f",
+      "processedAt": "2025-12-04T13:49:42.492Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_3778"
+    },
+    "IMG_3780.jpg": {
+      "mtime": "2025-12-04T04:09:50.030Z",
+      "size": 22413195,
+      "hash": "82294909971d0ce038739f358687cba0",
+      "processedAt": "2025-12-04T13:49:43.082Z",
+      "width": 4359,
+      "height": 6539,
+      "id": "IMG_3780"
+    },
+    "IMG_3801.jpg": {
+      "mtime": "2025-12-04T04:09:50.047Z",
+      "size": 6029287,
+      "hash": "927940a5628ed23ba68693b7cff4b3c4",
+      "processedAt": "2025-12-04T13:49:43.273Z",
+      "width": 2340,
+      "height": 3510,
+      "id": "IMG_3801"
+    },
+    "IMG_3809.jpg": {
+      "mtime": "2025-12-04T04:09:50.064Z",
+      "size": 8491678,
+      "hash": "ba64e30de5f40fe99e95ce7ec4035d95",
+      "processedAt": "2025-12-04T13:49:43.565Z",
+      "width": 3252,
+      "height": 5390,
+      "id": "IMG_3809"
+    },
+    "IMG_3816.jpg": {
+      "mtime": "2025-12-04T04:09:50.090Z",
+      "size": 17716484,
+      "hash": "6b8806f12f4b05299073f86ec89e0d58",
+      "processedAt": "2025-12-04T13:49:44.039Z",
+      "width": 5919,
+      "height": 3946,
+      "id": "IMG_3816"
+    },
+    "IMG_3831.jpg": {
+      "mtime": "2025-12-04T04:09:50.122Z",
+      "size": 25254818,
+      "hash": "e49d036a53f47fa421927ea07e0df0f4",
+      "processedAt": "2025-12-04T13:49:44.743Z",
+      "width": 4640,
+      "height": 6960,
+      "id": "IMG_3831"
+    },
+    "IMG_3866.jpg": {
+      "mtime": "2025-12-04T04:09:50.146Z",
+      "size": 13027492,
+      "hash": "756c7a7a30ee32d712b1c928bcf98735",
+      "processedAt": "2025-12-04T13:49:45.138Z",
+      "width": 5510,
+      "height": 4362,
+      "id": "IMG_3866"
+    },
+    "IMG_20251205_150645.jpg": {
+      "mtime": "2025-12-05T12:57:04.870Z",
+      "size": 4754238,
+      "hash": "3353c72eb1066433193f4ab24d768a91",
+      "processedAt": "2025-12-05T13:04:29.548Z",
+      "width": 3072,
+      "height": 4096,
+      "id": "IMG_20251205_150645"
+    },
+    "IMG_20251205_162947.jpg": {
+      "mtime": "2025-12-05T12:57:05.488Z",
+      "size": 3944282,
+      "hash": "17213264edeb3d23916d1eba3f2b7be9",
+      "processedAt": "2025-12-05T13:04:29.708Z",
+      "width": 2527,
+      "height": 3369,
+      "id": "IMG_20251205_162947"
+    },
+    "IMG_3953.jpg": {
+      "mtime": "2025-12-05T12:57:06.349Z",
+      "size": 41357341,
+      "hash": "e60c78b143d05634a692028546db3555",
+      "processedAt": "2025-12-05T13:04:31.783Z",
+      "width": 6960,
+      "height": 4640,
+      "id": "IMG_3953"
+    },
+    "IMG_20251205_113026.jpg": {
+      "mtime": "2025-12-05T12:56:58.873Z",
+      "size": 1097781,
+      "hash": "8628102efb0765dd32131ae8e739f999",
+      "processedAt": "2025-12-08T14:24:31.066Z",
+      "width": 1523,
+      "height": 1142,
+      "id": "IMG_20251205_113026"
+    },
+    "IMG_3929.jpg": {
+      "mtime": "2025-12-05T12:57:01.424Z",
+      "size": 13131673,
+      "hash": "c4ff084b3b27b47d4fdd628243a09f3c",
+      "processedAt": "2025-12-08T14:24:32.722Z",
+      "width": 5446,
+      "height": 3631,
+      "id": "IMG_3929"
+    }
+  }
+}
