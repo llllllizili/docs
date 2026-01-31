@@ -1,5 +1,107 @@
 [
   {
+    "id": "IMG_4528",
+    "src": "/photos/IMG_4528.jpg",
+    "thumbnail": "/generated/thumbnails/IMG_4528.jpg",
+    "alt": "IMG_4528",
+    "filename": "IMG_4528.jpg",
+    "format": "JPG",
+    "width": 2344,
+    "height": 1563,
+    "size": 1264271,
+    "exif": {
+      "make": "Canon",
+      "model": "Canon EOS R7",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/4.5",
+      "shutterSpeed": "1/125s",
+      "iso": "ISO 2000",
+      "exposureCompensation": "0 EV",
+      "focalLength": "56mm",
+      "dateTime": "2026-01-24T07:20:47.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 62,
+      "contrast": null,
+      "toneType": "标准",
+      "shadowRatio": 19,
+      "highlightRatio": 27
+    },
+    "processedAt": "2026-01-31T03:49:17.617Z"
+  },
+  {
+    "id": "IMG_4490",
+    "src": "/photos/IMG_4490.jpg",
+    "thumbnail": "/generated/thumbnails/IMG_4490.jpg",
+    "alt": "IMG_4490",
+    "filename": "IMG_4490.jpg",
+    "format": "JPG",
+    "width": 5993,
+    "height": 3995,
+    "size": 14325977,
+    "exif": {
+      "make": "Canon",
+      "model": "Canon EOS R7",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/16",
+      "shutterSpeed": "1/125s",
+      "iso": "ISO 1000",
+      "exposureCompensation": "0 EV",
+      "focalLength": "56mm",
+      "dateTime": "2026-01-24T06:37:15.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 35,
+      "contrast": null,
+      "toneType": "标准",
+      "shadowRatio": 11,
+      "highlightRatio": 46
+    },
+    "processedAt": "2026-01-31T03:49:17.516Z"
+  },
+  {
+    "id": "IMG_4477",
+    "src": "/photos/IMG_4477.jpg",
+    "thumbnail": "/generated/thumbnails/IMG_4477.jpg",
+    "alt": "IMG_4477",
+    "filename": "IMG_4477.jpg",
+    "format": "JPG",
+    "width": 3213,
+    "height": 4820,
+    "size": 12133144,
+    "exif": {
+      "make": "Canon",
+      "model": "Canon EOS R7",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/16",
+      "shutterSpeed": "1/125s",
+      "iso": "ISO 800",
+      "exposureCompensation": "0 EV",
+      "focalLength": "56mm",
+      "dateTime": "2026-01-24T06:18:13.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 22,
+      "contrast": null,
+      "toneType": "低调",
+      "shadowRatio": 7,
+      "highlightRatio": 55
+    },
+    "processedAt": "2026-01-31T03:49:17.030Z"
+  },
+  {
     "id": "IMG_20251205_162947",
     "src": "/photos/IMG_20251205_162947.jpg",
     "thumbnail": "/generated/thumbnails/IMG_20251205_162947.jpg",

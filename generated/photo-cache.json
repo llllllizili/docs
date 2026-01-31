@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastProcessed": "2025-12-08T15:06:39.046Z",
+  "lastProcessed": "2026-01-31T03:49:17.620Z",
   "files": {
     "1E8A0942.jpg": {
       "mtime": "2025-12-04T04:09:49.287Z",
@@ -406,6 +406,33 @@
       "width": 5446,
       "height": 3631,
       "id": "IMG_3929"
+    },
+    "IMG_4477.jpg": {
+      "mtime": "2026-01-31T03:44:50.414Z",
+      "size": 12133144,
+      "hash": "f463053eea9f5569208bb6dc988c645c",
+      "processedAt": "2026-01-31T03:49:17.050Z",
+      "width": 3213,
+      "height": 4820,
+      "id": "IMG_4477"
+    },
+    "IMG_4490.jpg": {
+      "mtime": "2026-01-31T03:44:51.528Z",
+      "size": 14325977,
+      "hash": "a1bf9fc95bcd16cd261829bca4c9cb21",
+      "processedAt": "2026-01-31T03:49:17.538Z",
+      "width": 5993,
+      "height": 3995,
+      "id": "IMG_4490"
+    },
+    "IMG_4528.jpg": {
+      "mtime": "2026-01-31T03:44:50.198Z",
+      "size": 1264271,
+      "hash": "576ae2c09fb42b5e8446c8d608e4374f",
+      "processedAt": "2026-01-31T03:49:17.619Z",
+      "width": 2344,
+      "height": 1563,
+      "id": "IMG_4528"
     }
   }
 }
