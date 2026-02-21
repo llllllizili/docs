@@ -1,5 +1,39 @@
 [
   {
+    "id": "IMG_4680",
+    "src": "/photos/IMG_4680.jpg",
+    "thumbnail": "/generated/thumbnails/IMG_4680.jpg",
+    "alt": "IMG_4680",
+    "filename": "IMG_4680.jpg",
+    "format": "JPG",
+    "width": 6133,
+    "height": 4089,
+    "size": 20761131,
+    "exif": {
+      "make": "Canon",
+      "model": "Canon EOS R7",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/11",
+      "shutterSpeed": "1/500s",
+      "iso": "ISO 3200",
+      "exposureCompensation": "0.3333333333333333 EV",
+      "focalLength": "100mm",
+      "dateTime": "2026-02-19T05:58:40.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 49,
+      "contrast": null,
+      "toneType": "标准",
+      "shadowRatio": 15,
+      "highlightRatio": 36
+    },
+    "processedAt": "2026-02-21T06:29:18.827Z"
+  },
+  {
     "id": "IMG_4528",
     "src": "/photos/IMG_4528.jpg",
     "thumbnail": "/generated/thumbnails/IMG_4528.jpg",
@@ -1630,5 +1664,39 @@
       "highlightRatio": 20
     },
     "processedAt": "2025-12-04T13:49:26.200Z"
+  },
+  {
+    "id": "M5A03906",
+    "src": "/photos/M5A03906.jpg",
+    "thumbnail": "/generated/thumbnails/M5A03906.jpg",
+    "alt": "M5A03906",
+    "filename": "M5A03906.jpg",
+    "format": "JPG",
+    "width": 2934,
+    "height": 3912,
+    "size": 11045764,
+    "exif": {
+      "make": "SONY",
+      "model": "DSC-RX100M5A",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/3.5",
+      "shutterSpeed": "1/1250s",
+      "iso": "ISO 125",
+      "exposureCompensation": "0 EV",
+      "focalLength": "8.8mm",
+      "dateTime": "2018-01-03T13:52:14.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 60,
+      "contrast": null,
+      "toneType": "标准",
+      "shadowRatio": 18,
+      "highlightRatio": 28
+    },
+    "processedAt": "2026-02-21T06:29:19.177Z"
   }
 ]
