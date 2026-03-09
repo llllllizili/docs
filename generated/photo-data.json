@@ -1,5 +1,39 @@
 [
   {
+    "id": "IMG_4776",
+    "src": "/photos/IMG_4776.jpg",
+    "thumbnail": "/generated/thumbnails/IMG_4776.jpg",
+    "alt": "IMG_4776",
+    "filename": "IMG_4776.jpg",
+    "format": "JPG",
+    "width": 4610,
+    "height": 6915,
+    "size": 24881775,
+    "exif": {
+      "make": "Canon",
+      "model": "Canon EOS R7",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/6.3",
+      "shutterSpeed": "1/100s",
+      "iso": "ISO 1000",
+      "exposureCompensation": "0.3333333333333333 EV",
+      "focalLength": "50mm",
+      "dateTime": "2026-03-07T02:12:02.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 42,
+      "contrast": null,
+      "toneType": "标准",
+      "shadowRatio": 13,
+      "highlightRatio": 41
+    },
+    "processedAt": "2026-03-09T01:51:00.041Z"
+  },
+  {
     "id": "IMG_4680",
     "src": "/photos/IMG_4680.jpg",
     "thumbnail": "/generated/thumbnails/IMG_4680.jpg",
@@ -1326,6 +1360,40 @@
     "processedAt": "2025-12-04T13:49:30.730Z"
   },
   {
+    "id": "IMG_2586",
+    "src": "/photos/IMG_2586.jpg",
+    "thumbnail": "/generated/thumbnails/IMG_2586.jpg",
+    "alt": "IMG_2586",
+    "filename": "IMG_2586.jpg",
+    "format": "JPG",
+    "width": 3643,
+    "height": 5464,
+    "size": 15492355,
+    "exif": {
+      "make": "Canon",
+      "model": "Canon EOS R7",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/2",
+      "shutterSpeed": "1/640s",
+      "iso": "ISO 4000",
+      "exposureCompensation": "0.3333333333333333 EV",
+      "focalLength": "56mm",
+      "dateTime": "2025-10-10T13:04:07.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 30,
+      "contrast": null,
+      "toneType": "标准",
+      "shadowRatio": 9,
+      "highlightRatio": 49
+    },
+    "processedAt": "2026-03-09T01:50:58.268Z"
+  },
+  {
     "id": "IMG_2304",
     "src": "/photos/IMG_2304.jpg",
     "thumbnail": "/generated/thumbnails/IMG_2304.jpg",
@@ -1664,6 +1732,74 @@
       "highlightRatio": 20
     },
     "processedAt": "2025-12-04T13:49:26.200Z"
+  },
+  {
+    "id": "M5A04033",
+    "src": "/photos/M5A04033.jpg",
+    "thumbnail": "/generated/thumbnails/M5A04033.jpg",
+    "alt": "M5A04033",
+    "filename": "M5A04033.jpg",
+    "format": "JPG",
+    "width": 4864,
+    "height": 3648,
+    "size": 20192442,
+    "exif": {
+      "make": "SONY",
+      "model": "DSC-RX100M5A",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/2.8",
+      "shutterSpeed": "1/40s",
+      "iso": "ISO 125",
+      "exposureCompensation": "0 EV",
+      "focalLength": "8.8mm",
+      "dateTime": "2018-01-19T12:23:03.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 22,
+      "contrast": null,
+      "toneType": "低调",
+      "shadowRatio": 7,
+      "highlightRatio": 55
+    },
+    "processedAt": "2026-03-09T01:51:00.966Z"
+  },
+  {
+    "id": "M5A04006",
+    "src": "/photos/M5A04006.jpg",
+    "thumbnail": "/generated/thumbnails/M5A04006.jpg",
+    "alt": "M5A04006",
+    "filename": "M5A04006.jpg",
+    "format": "JPG",
+    "width": 4864,
+    "height": 3648,
+    "size": 13291324,
+    "exif": {
+      "make": "SONY",
+      "model": "DSC-RX100M5A",
+      "software": "Adobe Photoshop Lightroom Classic 14.5.1 (Macintosh)",
+      "aperture": "f/2.8",
+      "shutterSpeed": "1/1000s",
+      "iso": "ISO 125",
+      "exposureCompensation": "0 EV",
+      "focalLength": "8.8mm",
+      "dateTime": "2018-01-19T10:53:00.000Z",
+      "whiteBalance": "Auto",
+      "meteringMode": "未知",
+      "exposureMode": "自动",
+      "gps": null
+    },
+    "tone": {
+      "brightness": 46,
+      "contrast": null,
+      "toneType": "标准",
+      "shadowRatio": 14,
+      "highlightRatio": 38
+    },
+    "processedAt": "2026-03-09T01:51:00.426Z"
   },
   {
     "id": "M5A03906",
